@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,6 +32,35 @@
       transition: gap 0.2s;
     }
     .back-btn:hover { gap: 10px; }
+
+    .lang-switches {
+        display: flex;
+        gap: 0.5rem;
+        margin-left: 4rem;
+    }
+
+    .lang-switches .lang-btn {
+        font-size: 0.95rem;
+        font-weight: 600;
+        padding: 0.25rem 0.75rem;
+        border: 2px solid var(--primary-dark);
+        color: var(--primary);        /* visible text color */
+        border-radius: 0.4rem;
+        margin-left: 0;
+        text-decoration: none;
+        transition: background 0.2s, color 0.2s;
+    }
+
+    .lang-switches .lang-btn:hover {
+        background-color: var(--primary-dark);
+        color: #fff;                        /* white text on hover */
+    }
+
+    .lang-switches .lang-btn.active {
+        background-color: var(--primary);
+        border-color: var(--primary);
+        color: #fff;                        /* white text when active */
+    }
 
     /* ─── PLAN HERO ─── */
     .plan-hero {
@@ -310,267 +339,272 @@
   <!-- HEADER -->
   <header class="header">
     <a href="index.html#home" class="logo">
-      <span class="logo-icon"><i class='bx bx-mobile-alt'></i></span>
-      Amm Sa Appli
+        <span class="logo-icon"><i class='bx bx-mobile-alt'></i></span>
+        Amm Sa Appli
     </a>
     <nav class="navbar">
-      <a href="index.html#home">Home</a>
-      <a href="index.html#about">About</a>
-      <a href="index.html#plans" class="active">Plans</a>
-      <a href="index.html#features">Features</a>
-      <a href="index.html#policy">Privacy</a>
-      <a href="index.html#contact">Contact</a>
+        <a href="index.html#home" data-lang="nav_home">Home</a>
+        <a href="index.html#about" data-lang="nav_about">About</a>
+        <a href="index.html#plans" class="active" data-lang="nav_plans">Plans</a>
+        <a href="index.html#features" data-lang="nav_features">Features</a>
+        <a href="index.html#policy" data-lang="nav_privacy">Privacy</a>
+        <a href="index.html#contact" data-lang="nav_contact">Contact</a>
     </nav>
-    <a href="index.html#contact" class="btn-header">Get Started</a>
+    <div class="lang-switches">
+        <a href="#" class="lang-btn" onclick="changeLanguage('en'); return false;">EN</a>
+        <a href="#" class="lang-btn" onclick="changeLanguage('fr'); return false;">FR</a>
+    </div>
+    <a href="index.html#contact" class="btn-header" data-lang="nav_get_started">Get Started</a>
     <i class='bx bx-menu' id="menu-icon"></i>
-  </header>
+    </header>
 
-  <div class="plan-detail-page" id="planPage">
+    <div class="plan-detail-page" id="planPage">
     <!-- Content injected by JS -->
   </div>
 
+  <script src="languages/en.js"></script>
+  <script src="languages/fr.js"></script>
+  <script src="js/language.js"></script>
   <script src="js/script.js"></script>
   <script>
+    function t(key) {
+        const lang = localStorage.getItem('lang') || 'fr';
+        const map = lang === 'en' ? en : fr;
+        return map[key] || key;
+    }
+
     const PLANS = {
-      basic: {
-        tag: 'Basic Plan',
-        name: 'Basic',
-        subtitle: 'For simple, client-side apps with no backend',
-        price: '200,000',
-        currency: 'FCFA',
-        priceNote: 'No server fees · Optional support: 10,000–25,000 FCFA/month',
-        color1: '#6820EC',
-        color2: '#2563EB',
-        icon: 'bx-rocket',
+        basic: {
+        tag: () => t('basic_tag'),
+        name: () => t('basic_name'),
+        subtitle: () => t('basic_detail_subtitle'),
+        price: '200,000', currency: 'FCFA',
+        priceNote: () => t('basic_detail_price_note'),
+        color1: '#6820EC', color2: '#2563EB', icon: 'bx-rocket',
         included: [
-          { text: 'Client-side only (no backend)', ok: true },
-          { text: 'No authentication required', ok: true },
-          { text: 'Basic UI template (no customizing)', ok: true },
-          { text: 'Navigation defined', ok: true },
-          { text: 'Core development', ok: true },
-          { text: 'Closed testing (owner only)', ok: true },
-          { text: 'Minor revisions (1–2)', ok: true },
-          { text: 'Play Store submission & final delivery', ok: true },
-          { text: 'Custom UI design', ok: false },
-          { text: 'Backend / database', ok: false },
-          { text: 'Authentication', ok: false },
+            { key: 'basic_di1', ok: true }, { key: 'basic_di2', ok: true },
+            { key: 'basic_di3', ok: true }, { key: 'basic_di4', ok: true },
+            { key: 'basic_di5', ok: true }, { key: 'basic_di6', ok: true },
+            { key: 'basic_di7', ok: true }, { key: 'basic_di8', ok: true },
+            { key: 'basic_di9', ok: false }, { key: 'basic_di10', ok: false },
+            { key: 'basic_di11', ok: false },
         ],
         workflow: [
-          { label: 'Kickoff', desc: 'You provide: app type, name, goal, icon.' },
-          { label: 'Basic UI Template', desc: 'We set up a standard UI template and define the navigation flow.' },
-          { label: 'Development', desc: 'Core client-side app is built — no backend or server logic.' },
-          { label: 'Closed Testing', desc: 'You test the app privately and provide feedback.' },
-          { label: 'Minor Revisions', desc: 'Up to 1–2 revision rounds based on your feedback.' },
-          { label: 'Final Delivery', desc: 'App is submitted to the Play Store and delivered to you.' },
+            { labelKey: 'basic_wf1_label', descKey: 'basic_wf1_desc' },
+            { labelKey: 'basic_wf2_label', descKey: 'basic_wf2_desc' },
+            { labelKey: 'basic_wf3_label', descKey: 'basic_wf3_desc' },
+            { labelKey: 'basic_wf4_label', descKey: 'basic_wf4_desc' },
+            { labelKey: 'basic_wf5_label', descKey: 'basic_wf5_desc' },
+            { labelKey: 'basic_wf6_label', descKey: 'basic_wf6_desc' },
         ],
         milestones: [
-          { name: 'Deposit', deliverable: 'Project start + requirement analysis', pct: '20%', amount: '40,000 CFA', time: 'Days 1–2' },
-          { name: 'Design', deliverable: 'UI template selection & approval', pct: '20%', amount: '40,000 CFA', time: 'Days 2–4' },
-          { name: 'Development', deliverable: 'Core app development complete', pct: '35%', amount: '70,000 CFA', time: 'Days 4–7' },
-          { name: 'Delivery / Launch', deliverable: 'Testing + Play Store launch', pct: '25%', amount: '50,000 CFA', time: 'Days 7–14' },
+            { nameKey: 'basic_ms1_name', delKey: 'basic_ms1_del', pct: '20%', amount: '40,000 CFA', timeKey: 'basic_ms1_time' },
+            { nameKey: 'basic_ms2_name', delKey: 'basic_ms2_del', pct: '20%', amount: '40,000 CFA', timeKey: 'basic_ms2_time' },
+            { nameKey: 'basic_ms3_name', delKey: 'basic_ms3_del', pct: '35%', amount: '70,000 CFA', timeKey: 'basic_ms3_time' },
+            { nameKey: 'basic_ms4_name', delKey: 'basic_ms4_del', pct: '25%', amount: '50,000 CFA', timeKey: 'basic_ms4_time' },
         ],
         total: '200,000 CFA',
-      },
+        },
 
-      medium: {
-        tag: 'Medium Plan',
-        name: 'Medium',
-        subtitle: 'For feature-rich apps with a backend and custom design',
-        price: '600,000',
-        currency: 'FCFA',
-        priceNote: '+ 35,000 FCFA/month (Firestore + Storage)',
-        color1: '#6820EC',
-        color2: '#2563EB',
-        icon: 'bx-diamond',
+        medium: {
+        tag: () => t('medium_tag'),
+        name: () => t('medium_name'),
+        subtitle: () => t('medium_detail_subtitle'),
+        price: '600,000', currency: 'FCFA',
+        priceNote: () => t('medium_detail_price_note'),
+        color1: '#6820EC', color2: '#2563EB', icon: 'bx-diamond',
         included: [
-          { text: 'Managed backend', ok: true },
-          { text: 'Firestore + Storage integration', ok: true },
-          { text: 'Full Auth — Google sign-in', ok: true },
-          { text: 'Custom UI sketching & wireframe', ok: true },
-          { text: 'User journey & database logic', ok: true },
-          { text: 'Full frontend + Firebase development', ok: true },
-          { text: 'Closed testing + client testing', ok: true },
-          { text: 'Revisions (up to 3)', ok: true },
-          { text: 'Play Store submission & final delivery', ok: true },
-          { text: 'Firebase Cloud Functions', ok: false },
-          { text: 'Advanced backend services', ok: false },
+            { key: 'medium_di1', ok: true }, { key: 'medium_di2', ok: true },
+            { key: 'medium_di3', ok: true }, { key: 'medium_di4', ok: true },
+            { key: 'medium_di5', ok: true }, { key: 'medium_di6', ok: true },
+            { key: 'medium_di7', ok: true }, { key: 'medium_di8', ok: true },
+            { key: 'medium_di9', ok: true }, { key: 'medium_di10', ok: false },
+            { key: 'medium_di11', ok: false },
         ],
         workflow: [
-          { label: 'Kickoff', desc: 'You provide: goals, features, app type, icon, name.' },
-          { label: 'UI Sketching & Wireframe', desc: 'Custom wireframes designed for your user journey.' },
-          { label: 'UI Design', desc: 'Final screens approved by you before development begins.' },
-          { label: 'Development', desc: 'Frontend built with full Firebase backend, Firestore & Google Auth.' },
-          { label: 'Testing', desc: 'Internal closed testing followed by client testing.' },
-          { label: 'Revisions', desc: 'Up to 3 revision rounds based on your feedback.' },
-          { label: 'Production Launch', desc: 'Final release to the Play Store.' },
+            { labelKey: 'medium_wf1_label', descKey: 'medium_wf1_desc' },
+            { labelKey: 'medium_wf2_label', descKey: 'medium_wf2_desc' },
+            { labelKey: 'medium_wf3_label', descKey: 'medium_wf3_desc' },
+            { labelKey: 'medium_wf4_label', descKey: 'medium_wf4_desc' },
+            { labelKey: 'medium_wf5_label', descKey: 'medium_wf5_desc' },
+            { labelKey: 'medium_wf6_label', descKey: 'medium_wf6_desc' },
+            { labelKey: 'medium_wf7_label', descKey: 'medium_wf7_desc' },
         ],
         milestones: [
-          { name: 'Deposit', deliverable: 'Kickoff + requirements analysis', pct: '20%', amount: '120,000 CFA', time: 'Days 2–6' },
-          { name: 'Wireframes', deliverable: 'UI sketches approved', pct: '15%', amount: '90,000 CFA', time: 'Days 3–5' },
-          { name: 'Design', deliverable: 'Final UI approved', pct: '20%', amount: '120,000 CFA', time: 'Days 4–7' },
-          { name: 'Development', deliverable: 'Frontend + Firebase integration', pct: '25%', amount: '150,000 CFA', time: 'Days 8–16' },
-          { name: 'Testing', deliverable: 'Beta testing & revisions', pct: '10%', amount: '60,000 CFA', time: 'Days 3–7' },
-          { name: 'Production Launch', deliverable: 'Final release', pct: '10%', amount: '60,000 CFA', time: 'Days 7–14' },
+            { nameKey: 'medium_ms1_name', delKey: 'medium_ms1_del', pct: '20%', amount: '120,000 CFA', timeKey: 'medium_ms1_time' },
+            { nameKey: 'medium_ms2_name', delKey: 'medium_ms2_del', pct: '15%', amount: '90,000 CFA',  timeKey: 'medium_ms2_time' },
+            { nameKey: 'medium_ms3_name', delKey: 'medium_ms3_del', pct: '20%', amount: '120,000 CFA', timeKey: 'medium_ms3_time' },
+            { nameKey: 'medium_ms4_name', delKey: 'medium_ms4_del', pct: '25%', amount: '150,000 CFA', timeKey: 'medium_ms4_time' },
+            { nameKey: 'medium_ms5_name', delKey: 'medium_ms5_del', pct: '10%', amount: '60,000 CFA',  timeKey: 'medium_ms5_time' },
+            { nameKey: 'medium_ms6_name', delKey: 'medium_ms6_del', pct: '10%', amount: '60,000 CFA',  timeKey: 'medium_ms6_time' },
         ],
         total: '600,000 CFA',
-      },
+        },
 
-      pro: {
-        tag: 'Professional Plan',
-        name: 'Professional',
-        subtitle: 'For complex, high-end apps requiring architecture, cloud services & post-launch support',
-        price: '1,400,000',
-        currency: 'FCFA',
-        priceNote: '+ 90,000 FCFA/month (Cloud Functions & advanced services)',
-        color1: '#1a0a3d',
-        color2: '#6820EC',
-        icon: 'bx-crown',
+        pro: {
+        tag: () => t('pro_tag'),
+        name: () => t('pro_name'),
+        subtitle: () => t('pro_detail_subtitle'),
+        price: '1,400,000', currency: 'FCFA',
+        priceNote: () => t('pro_detail_price_note'),
+        color1: '#1a0a3d', color2: '#6820EC', icon: 'bx-crown',
         included: [
-          { text: 'Advanced backend', ok: true },
-          { text: 'Firebase Cloud Functions & advanced services', ok: true },
-          { text: 'Full authentication', ok: true },
-          { text: 'UI research + wireframes', ok: true },
-          { text: 'Architecture planning', ok: true },
-          { text: 'Full development', ok: true },
-          { text: 'QA closed testing (security, performance, functionality)', ok: true },
-          { text: 'Client beta testing', ok: true },
-          { text: 'Multi-revision rounds', ok: true },
-          { text: 'Store publishing', ok: true },
-          { text: 'Post-launch support, maintenance & fixes', ok: true },
+            { key: 'pro_di1', ok: true }, { key: 'pro_di2', ok: true },
+            { key: 'pro_di3', ok: true }, { key: 'pro_di4', ok: true },
+            { key: 'pro_di5', ok: true }, { key: 'pro_di6', ok: true },
+            { key: 'pro_di7', ok: true }, { key: 'pro_di8', ok: true },
+            { key: 'pro_di9', ok: true }, { key: 'pro_di10', ok: true },
+            { key: 'pro_di11', ok: true },
         ],
         workflow: [
-          { label: 'Discovery', desc: 'You provide: goals, competitor analysis, monetization strategy, documents.' },
-          { label: 'Strategy & Architecture', desc: 'Full architecture plan and technical strategy defined.' },
-          { label: 'UX / Wireframes', desc: 'UI research and detailed wireframes created.' },
-          { label: 'UI Design', desc: 'Full design approved by you across all screens.' },
-          { label: 'Core Development', desc: 'Main app build with full backend and Cloud Functions.' },
-          { label: 'Backend', desc: 'Cloud Functions, APIs, and advanced Firebase services integrated.' },
-          { label: 'QA / Beta', desc: 'Security, performance, and functionality testing. Client beta.' },
-          { label: 'Launch & Support', desc: 'Store publishing, post-launch support, maintenance, and bug fixes.' },
+            { labelKey: 'pro_wf1_label', descKey: 'pro_wf1_desc' },
+            { labelKey: 'pro_wf2_label', descKey: 'pro_wf2_desc' },
+            { labelKey: 'pro_wf3_label', descKey: 'pro_wf3_desc' },
+            { labelKey: 'pro_wf4_label', descKey: 'pro_wf4_desc' },
+            { labelKey: 'pro_wf5_label', descKey: 'pro_wf5_desc' },
+            { labelKey: 'pro_wf6_label', descKey: 'pro_wf6_desc' },
+            { labelKey: 'pro_wf7_label', descKey: 'pro_wf7_desc' },
+            { labelKey: 'pro_wf8_label', descKey: 'pro_wf8_desc' },
         ],
         milestones: [
-          { name: 'Deposit', deliverable: 'Discovery + planning', pct: '20%', amount: '280,000 CFA', time: 'Days 2–4' },
-          { name: 'UX / Wireframes', deliverable: 'Architecture + sketch', pct: '15%', amount: '210,000 CFA', time: 'Days 3–5' },
-          { name: 'UI Design', deliverable: 'Full design approved', pct: '15%', amount: '210,000 CFA', time: 'Days 4–7' },
-          { name: 'Core Development', deliverable: 'Main build complete', pct: '20%', amount: '280,000 CFA', time: 'Days 10–20' },
-          { name: 'Backend', deliverable: 'Cloud Functions + APIs', pct: '15%', amount: '210,000 CFA', time: 'Days 7–16' },
-          { name: 'QA / Beta', deliverable: 'Testing + beta + revisions', pct: '10%', amount: '140,000 CFA', time: 'Days 5–10' },
-          { name: 'Launch / Production', deliverable: 'Final delivery', pct: '5%', amount: '70,000 CFA', time: 'Days 7–10' },
+            { nameKey: 'pro_ms1_name', delKey: 'pro_ms1_del', pct: '20%', amount: '280,000 CFA', timeKey: 'pro_ms1_time' },
+            { nameKey: 'pro_ms2_name', delKey: 'pro_ms2_del', pct: '15%', amount: '210,000 CFA', timeKey: 'pro_ms2_time' },
+            { nameKey: 'pro_ms3_name', delKey: 'pro_ms3_del', pct: '15%', amount: '210,000 CFA', timeKey: 'pro_ms3_time' },
+            { nameKey: 'pro_ms4_name', delKey: 'pro_ms4_del', pct: '20%', amount: '280,000 CFA', timeKey: 'pro_ms4_time' },
+            { nameKey: 'pro_ms5_name', delKey: 'pro_ms5_del', pct: '15%', amount: '210,000 CFA', timeKey: 'pro_ms5_time' },
+            { nameKey: 'pro_ms6_name', delKey: 'pro_ms6_del', pct: '10%', amount: '140,000 CFA', timeKey: 'pro_ms6_time' },
+            { nameKey: 'pro_ms7_name', delKey: 'pro_ms7_del', pct: '5%',  amount: '70,000 CFA',  timeKey: 'pro_ms7_time' },
         ],
         total: '1,400,000 CFA',
-      },
+        },
     };
 
     function getPlanFromURL() {
-      const params = new URLSearchParams(window.location.search);
-      return params.get('plan') || 'basic';
+        const params = new URLSearchParams(window.location.search);
+        return params.get('plan') || 'basic';
     }
 
     function renderPlan(planKey) {
-      const plan = PLANS[planKey];
-      if (!plan) {
+        const plan = PLANS[planKey];
+        if (!plan) {
         document.getElementById('planPage').innerHTML = '<p>Plan not found. <a href="index.html#plans">Go back</a></p>';
         return;
-      }
+        }
 
-      document.title = `${plan.name} Plan — Amm Sa Appli`;
+        const name     = plan.name();
+        const tag      = plan.tag();
+        const subtitle = plan.subtitle();
+        const priceNote = plan.priceNote();
+        document.title = `${name} — Amm Sa Appli`;
 
-      const workflowHTML = plan.workflow.map((s, i) => `
+        const workflowHTML = plan.workflow.map((s, i) => `
         <div class="workflow-step">
-          <div class="step-dot">${i + 1}</div>
-          <div class="step-body">
-            <h4>${s.label}</h4>
-            <p>${s.desc}</p>
-          </div>
+            <div class="step-dot">${i + 1}</div>
+            <div class="step-body">
+            <h4>${t(s.labelKey)}</h4>
+            <p>${t(s.descKey)}</p>
+            </div>
         </div>
-      `).join('');
+        `).join('');
 
-      const milestonesHTML = plan.milestones.map(m => `
+        const milestonesHTML = plan.milestones.map(m => `
         <tr>
-          <td><strong>${m.name}</strong></td>
-          <td>${m.deliverable}</td>
-          <td><span class="pct-badge">${m.pct}</span></td>
-          <td class="amount-cell">${m.amount}</td>
-          <td class="time-cell">${m.time}</td>
+            <td><strong>${t(m.nameKey)}</strong></td>
+            <td>${t(m.delKey)}</td>
+            <td><span class="pct-badge">${m.pct}</span></td>
+            <td class="amount-cell">${m.amount}</td>
+            <td class="time-cell">${t(m.timeKey)}</td>
         </tr>
-      `).join('');
+        `).join('');
 
-      const includedHTML = plan.included.map(f => `
+        const includedHTML = plan.included.map(f => `
         <li class="${f.ok ? '' : 'muted'}">
-          <i class='bx ${f.ok ? 'bx-check-circle' : 'bx-x-circle'}'></i>
-          ${f.text}
+            <i class='bx ${f.ok ? 'bx-check-circle' : 'bx-x-circle'}'></i>
+            ${t(f.key)}
         </li>
-      `).join('');
+        `).join('');
 
-      document.getElementById('planPage').innerHTML = `
+        document.getElementById('planPage').innerHTML = `
         <a href="index.html#plans" class="back-btn">
-          <i class='bx bx-arrow-back'></i> Back to plans
+            <i class='bx bx-arrow-back'></i> ${t('plan_back')}
         </a>
 
         <div class="plan-hero" style="background: linear-gradient(135deg, ${plan.color1} 0%, ${plan.color2} 100%);">
-          <div class="plan-hero-tag"><i class='bx ${plan.icon}'></i> &nbsp;${plan.tag}</div>
-          <h1>${plan.name}</h1>
-          <p>${plan.subtitle}</p>
-          <div class="plan-hero-price">
+            <div class="plan-hero-tag"><i class='bx ${plan.icon}'></i> &nbsp;${tag}</div>
+            <h1>${name}</h1>
+            <p>${subtitle}</p>
+            <div class="plan-hero-price">
             <span class="amt">${plan.price}</span>
             <span class="cur">${plan.currency}</span>
-            <span class="sub">${plan.priceNote}</span>
-          </div>
+            <span class="sub">${priceNote}</span>
+            </div>
         </div>
 
         <div class="section-card">
-          <h2><i class='bx bx-list-check'></i> What's included</h2>
-          <ul class="features-list">${includedHTML}</ul>
+            <h2><i class='bx bx-list-check'></i> ${t('plan_whats_included')}</h2>
+            <ul class="features-list">${includedHTML}</ul>
         </div>
 
         <div class="section-card">
-          <h2><i class='bx bx-git-branch'></i> How it works — Workflow</h2>
-          <div class="workflow-steps">${workflowHTML}</div>
+            <h2><i class='bx bx-git-branch'></i> ${t('plan_workflow_title')}</h2>
+            <div class="workflow-steps">${workflowHTML}</div>
         </div>
 
         <div class="section-card">
-          <h2><i class='bx bx-credit-card'></i> Payment structure — Milestones</h2>
-          <div style="overflow-x:auto;">
+            <h2><i class='bx bx-credit-card'></i> ${t('plan_payment_title')}</h2>
+            <div style="overflow-x:auto;">
             <table class="milestone-table">
-              <thead>
+                <thead>
                 <tr>
-                  <th>Milestone</th>
-                  <th>Deliverable</th>
-                  <th>%</th>
-                  <th>Amount</th>
-                  <th>Timeline</th>
+                    <th>${t('plan_th_milestone')}</th>
+                    <th>${t('plan_th_deliverable')}</th>
+                    <th>%</th>
+                    <th>${t('plan_th_amount')}</th>
+                    <th>${t('plan_th_timeline')}</th>
                 </tr>
-              </thead>
-              <tbody>
+                </thead>
+                <tbody>
                 ${milestonesHTML}
                 <tr class="table-total">
-                  <td colspan="2"><strong>Total</strong></td>
-                  <td><span class="pct-badge">100%</span></td>
-                  <td colspan="2"><strong>${plan.total}</strong></td>
+                    <td colspan="2"><strong>${t('plan_total')}</strong></td>
+                    <td><span class="pct-badge">100%</span></td>
+                    <td colspan="2"><strong>${plan.total}</strong></td>
                 </tr>
-              </tbody>
+                </tbody>
             </table>
-          </div>
+            </div>
         </div>
 
         <div class="section-card">
-          <h2><i class='bx bx-info-circle'></i> Payment rules</h2>
-          <ul class="rules-list">
-            <li><i class='bx bx-x-circle'></i> <span>The deposit is <strong>non-refundable</strong>.</span></li>
-            <li><i class='bx bx-pause-circle'></i> <span>Work <strong>pauses</strong> if a payment becomes overdue. The next phase starts only after the previous payment is made.</span></li>
-            <li><i class='bx bx-lock'></i> <span>Final files are <strong>released only after the final payment</strong> is received.</span></li>
-          </ul>
+            <h2><i class='bx bx-info-circle'></i> ${t('plan_rules_title')}</h2>
+            <ul class="rules-list">
+            <li><i class='bx bx-x-circle'></i> <span>${t('plan_rule1')}</span></li>
+            <li><i class='bx bx-pause-circle'></i> <span>${t('plan_rule2')}</span></li>
+            <li><i class='bx bx-lock'></i> <span>${t('plan_rule3')}</span></li>
+            </ul>
         </div>
 
         <div class="plan-cta">
-          <a href="index.html#contact">
-            <i class='bx bx-send'></i> Get the ${plan.name} Plan
-          </a>
+            <a href="index.html#contact">
+            <i class='bx bx-send'></i> ${t('plan_cta_prefix')} ${name} ${t('plan_cta_suffix')}
+            </a>
         </div>
-      `;
+        `;
     }
 
+    // function getPlanFromURL() {
+    //     const params = new URLSearchParams(window.location.search);
+    //     return params.get('plan') || 'basic';
+    // }
+
     renderPlan(getPlanFromURL());
+
+    // Re-render when language changes so injected content updates too
+    const _origChangeLanguage = window.changeLanguage;
+    window.changeLanguage = function(lang) {
+        _origChangeLanguage(lang);
+        renderPlan(getPlanFromURL());
+    };
   </script>
 </body>
 </html>

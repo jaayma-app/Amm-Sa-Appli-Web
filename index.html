@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +8,10 @@
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <script src="languages/en.js"></script>
+  <script src="languages/fr.js"></script>
+  <script src="js/language.js"></script>
+
 </head>
 <body>
 
@@ -19,15 +23,20 @@
     </a>
 
     <nav class="navbar">
-      <a href="#home" class="active">Home</a>
-      <a href="#about">About</a>
-      <a href="#plans">Plans</a>
-      <a href="#features">Features</a>
-      <a href="#policy">Privacy</a>
-      <a href="#contact">Contact</a>
+      <a href="#home" class="active" data-lang="nav_home">Home</a>
+      <a href="#about" data-lang="nav_about">About</a>
+      <a href="#plans" data-lang="nav_plans">Plans</a>
+      <a href="#features" data-lang="nav_features">Features</a>
+      <a href="#policy" data-lang="nav_privacy">Privacy</a>
+      <a href="#contact" data-lang="nav_contact">Contact</a>
     </nav>
 
-    <a href="#contact" class="btn-header">Get Started</a>
+    <div class="lang-switches">
+      <a href="#" class="lang-btn" onclick="changeLanguage('en'); return false;">EN</a>
+      <a href="#" class="lang-btn" onclick="changeLanguage('fr'); return false;">FR</a>
+    </div>
+
+    <a href="#contact" class="btn-header" data-lang="nav_get_started">Get Started</a>
     <i class='bx bx-menu' id="menu-icon"></i>
   </header>
 
@@ -36,27 +45,31 @@
     <div class="home-bg-shape"></div>
     <div class="home-bg-shape2"></div>
     <div class="home-content">
-      <span class="home-tag"><i class='bx bx-check-shield'></i> 100% Ad-Free Platform</span>
-      <h1>Build your <span class="gradient-text">Play Store app</span> without writing a line of code</h1>
-      <p>Choose your plan, track your build live, test it, and request changes — all from one place. Amm Sa Appli handles everything from idea to launch.</p>
+      <span class="home-tag"><i class='bx bx-check-shield'></i> <span data-lang="home_tag">100% Ad-Free Platform</span></span>
+      <h1>
+        <span data-lang="home_h1_1">Build your</span>
+        <span class="gradient-text" data-lang="home_h1_highlight"> Play Store app</span>
+        <br><span data-lang="home_h1_2">without writing a line of code</span>
+      </h1>
+      <p data-lang="home_p">Choose your plan, track your build live, test it, and request changes — all from one place. Amm Sa Appli handles everything from idea to launch.</p>
       <div class="home-btns">
-        <a href="#plans" class="btn-primary">View Plans</a>
-        <a href="#features" class="btn-outline">See How It Works <i class='bx bx-arrow-back bx-rotate-180'></i></a>
+        <a href="#plans" class="btn-primary" data-lang="home_btn_plans">View Plans</a>
+        <a href="#features" class="btn-outline"><span data-lang="home_btn_how">See How It Works</span> <i class='bx bx-arrow-back bx-rotate-180'></i></a>
       </div>
       <div class="home-stats">
         <div class="stat">
           <strong>3</strong>
-          <span>Plan tiers</span>
+          <span data-lang="stat_plans">Plan tiers</span>
         </div>
         <div class="stat-divider"></div>
         <div class="stat">
           <strong>100%</strong>
-          <span>Ad-free</span>
+          <span data-lang="stat_adfree">Ad-free</span>
         </div>
         <div class="stat-divider"></div>
         <div class="stat">
           <strong>Live</strong>
-          <span>Progress tracking</span>
+          <span data-lang="stat_tracking">Progress tracking</span>
         </div>
       </div>
     </div>
@@ -66,14 +79,14 @@
           <div class="phone-status-bar"></div>
           <div class="phone-app-icon"><i class='bx bx-code-block'></i></div>
           <div class="phone-app-name">Amm Sa Appli</div>
-          <div class="phone-progress-label">Build progress</div>
+          <div class="phone-progress-label" data-lang="phone_build">Build progress</div>
           <div class="phone-progress-bar"><div class="phone-progress-fill"></div></div>
           <div class="phone-progress-pct">78%</div>
           <div class="phone-steps">
-            <div class="phone-step done"><i class='bx bx-check'></i> Design approved</div>
-            <div class="phone-step done"><i class='bx bx-check'></i> Backend ready</div>
-            <div class="phone-step active"><i class='bx bx-loader-alt bx-spin'></i> UI in progress</div>
-            <div class="phone-step"><i class='bx bx-time'></i> Play Store upload</div>
+            <div class="phone-step done"><i class='bx bx-check'></i> <span data-lang="phone_step1">Design approved</span></div>
+            <div class="phone-step done"><i class='bx bx-check'></i> <span data-lang="phone_step2">Backend ready</span></div>
+            <div class="phone-step active"><i class='bx bx-loader-alt bx-spin'></i> <span data-lang="phone_step3">UI in progress</span></div>
+            <div class="phone-step"><i class='bx bx-time'></i> <span data-lang="phone_step4">Play Store upload</span></div>
           </div>
         </div>
       </div>
@@ -82,30 +95,33 @@
 
   <!-- ABOUT -->
   <section class="about" id="about">
-    <div class="section-tag">About us</div>
-    <h2 class="section-title">We build your app, <span class="gradient-text">you guide the vision</span></h2>
-    <p class="section-sub">Amm Sa Appli is a no-code app creation service that puts the power of the Play Store in your hands. You sign in with Google, pick your plan, and our team takes it from there — while you watch every step.</p>
+    <div class="section-tag" data-lang="about_tag">About us</div>
+    <h2 class="section-title">
+      <span data-lang="about_h2_1">We build your app,</span>
+      <span class="gradient-text" data-lang="about_h2_highlight"> you guide the vision</span>
+    </h2>
+    <p class="section-sub" data-lang="about_sub">Amm Sa Appli is a no-code app creation service that puts the power of the Play Store in your hands. You sign in with Google, pick your plan, and our team takes it from there — while you watch every step.</p>
 
     <div class="about-grid">
       <div class="about-card">
         <div class="about-icon" style="background:#f0e9fd;color:#6820EC"><i class='bx bx-google'></i></div>
-        <h3>Sign in with Google</h3>
-        <p>Quick, secure registration using your existing Google account. No passwords to manage, no forms to fill.</p>
+        <h3 data-lang="about_card1_title">Sign in with Google</h3>
+        <p data-lang="about_card1_p">Quick, secure registration using your existing Google account. No passwords to manage, no forms to fill.</p>
       </div>
       <div class="about-card">
         <div class="about-icon" style="background:#eff6ff;color:#2563EB"><i class='bx bx-layer'></i></div>
-        <h3>Choose your plan</h3>
-        <p>Pick Basic, Medium, or Professional depending on your needs and budget. Upgrade anytime.</p>
+        <h3 data-lang="about_card2_title">Choose your plan</h3>
+        <p data-lang="about_card2_p">Pick Basic, Medium, or Professional depending on your needs and budget. Upgrade anytime.</p>
       </div>
       <div class="about-card">
         <div class="about-icon" style="background:#f0e9fd;color:#6820EC"><i class='bx bx-radar'></i></div>
-        <h3>Track your build</h3>
-        <p>Follow every stage of development in real time. No guesswork — full transparency from day one.</p>
+        <h3 data-lang="about_card3_title">Track your build</h3>
+        <p data-lang="about_card3_p">Follow every stage of development in real time. No guesswork — full transparency from day one.</p>
       </div>
       <div class="about-card">
         <div class="about-icon" style="background:#eff6ff;color:#2563EB"><i class='bx bx-comment-edit'></i></div>
-        <h3>Test & recommend</h3>
-        <p>Test your app before it's published and submit change requests directly through the platform.</p>
+        <h3 data-lang="about_card4_title">Test & recommend</h3>
+        <p data-lang="about_card4_p">Test your app before it's published and submit change requests directly through the platform.</p>
       </div>
     </div>
   </section>
@@ -113,9 +129,12 @@
   <!-- PLANS -->
   <section class="plans" id="plans">
     <div class="plans-bg"></div>
-    <div class="section-tag">Pricing</div>
-    <h2 class="section-title">Pick the plan that fits <span class="gradient-text">your project</span></h2>
-    <p class="section-sub">Every plan includes live build tracking, a test version of your app, and Play Store submission. Plans are paid in milestones — you only pay for each phase when it's delivered.</p>
+    <div class="section-tag" data-lang="plans_tag">Pricing</div>
+    <h2 class="section-title">
+      <span data-lang="plans_h2_1">Pick the plan that fits</span>
+      <span class="gradient-text" data-lang="plans_h2_highlight"> your project</span>
+    </h2>
+    <p class="section-sub" data-lang="plans_sub">Every plan includes live build tracking, a test version of your app, and Play Store submission. Plans are paid in milestones — you only pay for each phase when it's delivered.</p>
 
     <div class="plans-grid">
 
@@ -125,57 +144,57 @@
           <div class="plan-icon"><i class='bx bx-rocket'></i></div>
           <div>
             <h3>Basic</h3>
-            <p>For simple, client-side apps</p>
+            <p data-lang="basic_subtitle">For simple, client-side apps</p>
           </div>
         </div>
         <div class="plan-price">
           <span class="price-amount">200,000</span>
           <span class="price-currency">FCFA</span>
-          <span class="price-note">No server fees</span>
+          <span class="price-note" data-lang="basic_price_note">No server fees</span>
         </div>
         <ul class="plan-features">
-          <li><i class='bx bx-check'></i> Client-side only (no backend)</li>
-          <li><i class='bx bx-check'></i> No authentication required</li>
-          <li><i class='bx bx-check'></i> Basic UI template</li>
-          <li><i class='bx bx-check'></i> Navigation defined</li>
-          <li><i class='bx bx-check'></i> Core development</li>
-          <li><i class='bx bx-check'></i> Closed testing (owner only)</li>
-          <li><i class='bx bx-check'></i> Minor revisions (1–2)</li>
-          <li><i class='bx bx-check'></i> Play Store submission</li>
-          <li class="muted"><i class='bx bx-x'></i> Custom UI design</li>
-          <li class="muted"><i class='bx bx-x'></i> Backend / database</li>
+          <li><i class='bx bx-check'></i> <span data-lang="basic_f1">Client-side only (no backend)</span></li>
+          <li><i class='bx bx-check'></i> <span data-lang="basic_f2">No authentication required</span></li>
+          <li><i class='bx bx-check'></i> <span data-lang="basic_f3">Basic UI template</span></li>
+          <li><i class='bx bx-check'></i> <span data-lang="basic_f4">Navigation defined</span></li>
+          <li><i class='bx bx-check'></i> <span data-lang="basic_f5">Core development</span></li>
+          <li><i class='bx bx-check'></i> <span data-lang="basic_f6">Closed testing (owner only)</span></li>
+          <li><i class='bx bx-check'></i> <span data-lang="basic_f7">Minor revisions (1–2)</span></li>
+          <li><i class='bx bx-check'></i> <span data-lang="basic_f8">Play Store submission</span></li>
+          <li class="muted"><i class='bx bx-x'></i> <span data-lang="basic_f9">Custom UI design</span></li>
+          <li class="muted"><i class='bx bx-x'></i> <span data-lang="basic_f10">Backend / database</span></li>
         </ul>
-        <a href="plan.html?plan=basic" class="btn-plan">Get Basic</a>
+        <a href="plan.html?plan=basic" class="btn-plan" data-lang="basic_btn">Get Basic</a>
       </div>
 
       <!-- MEDIUM PLAN -->
       <div class="plan-card featured">
-        <div class="plan-badge">Most Popular</div>
+        <div class="plan-badge" data-lang="medium_badge">Most Popular</div>
         <div class="plan-header">
           <div class="plan-icon featured-icon"><i class='bx bx-diamond'></i></div>
           <div>
             <h3>Medium</h3>
-            <p>For feature-rich, connected apps</p>
+            <p data-lang="medium_subtitle">For feature-rich, connected apps</p>
           </div>
         </div>
         <div class="plan-price">
           <span class="price-amount">600,000</span>
           <span class="price-currency">FCFA</span>
-          <span class="price-note">+ 35,000 FCFA/month (Firestore)</span>
+          <span class="price-note" data-lang="medium_price_note">+ 35,000 FCFA/month (Firestore)</span>
         </div>
         <ul class="plan-features">
-          <li><i class='bx bx-check'></i> Managed backend</li>
-          <li><i class='bx bx-check'></i> Firestore + Storage</li>
-          <li><i class='bx bx-check'></i> Full Auth (Google sign-in)</li>
-          <li><i class='bx bx-check'></i> Custom UI sketching & wireframe</li>
-          <li><i class='bx bx-check'></i> User journey & database logic</li>
-          <li><i class='bx bx-check'></i> Full development</li>
-          <li><i class='bx bx-check'></i> Closed + client testing</li>
-          <li><i class='bx bx-check'></i> Revisions (up to 3)</li>
-          <li><i class='bx bx-check'></i> Play Store submission</li>
-          <li class="muted"><i class='bx bx-x'></i> Cloud Functions / advanced services</li>
+          <li><i class='bx bx-check'></i> <span data-lang="medium_f1">Managed backend</span></li>
+          <li><i class='bx bx-check'></i> <span data-lang="medium_f2">Firestore + Storage</span></li>
+          <li><i class='bx bx-check'></i> <span data-lang="medium_f3">Full Auth (Google sign-in)</span></li>
+          <li><i class='bx bx-check'></i> <span data-lang="medium_f4">Custom UI sketching & wireframe</span></li>
+          <li><i class='bx bx-check'></i> <span data-lang="medium_f5">User journey & database logic</span></li>
+          <li><i class='bx bx-check'></i> <span data-lang="medium_f6">Full development</span></li>
+          <li><i class='bx bx-check'></i> <span data-lang="medium_f7">Closed + client testing</span></li>
+          <li><i class='bx bx-check'></i> <span data-lang="medium_f8">Revisions (up to 3)</span></li>
+          <li><i class='bx bx-check'></i> <span data-lang="medium_f9">Play Store submission</span></li>
+          <li class="muted"><i class='bx bx-x'></i> <span data-lang="medium_f10">Cloud Functions / advanced services</span></li>
         </ul>
-        <a href="plan.html?plan=medium" class="btn-plan featured-btn">Get Medium</a>
+        <a href="plan.html?plan=medium" class="btn-plan featured-btn" data-lang="medium_btn">Get Medium</a>
       </div>
 
       <!-- PRO PLAN -->
@@ -184,27 +203,27 @@
           <div class="plan-icon pro-icon"><i class='bx bx-crown'></i></div>
           <div>
             <h3>Professional</h3>
-            <p>For complex, high-end apps</p>
+            <p data-lang="pro_subtitle">For complex, high-end apps</p>
           </div>
         </div>
         <div class="plan-price">
           <span class="price-amount">1,400,000</span>
           <span class="price-currency">FCFA</span>
-          <span class="price-note">+ 90,000 FCFA/month (Cloud)</span>
+          <span class="price-note" data-lang="pro_price_note">+ 90,000 FCFA/month (Cloud)</span>
         </div>
         <ul class="plan-features">
-          <li><i class='bx bx-check'></i> Advanced backend</li>
-          <li><i class='bx bx-check'></i> Firebase Cloud Functions & advanced services</li>
-          <li><i class='bx bx-check'></i> Full authentication</li>
-          <li><i class='bx bx-check'></i> UI research + wireframes</li>
-          <li><i class='bx bx-check'></i> Architecture planning</li>
-          <li><i class='bx bx-check'></i> Full development</li>
-          <li><i class='bx bx-check'></i> QA closed testing (security, performance, functionality)</li>
-          <li><i class='bx bx-check'></i> Client beta testing & multi-revision</li>
-          <li><i class='bx bx-check'></i> Store publishing</li>
-          <li><i class='bx bx-check'></i> Post-launch support, maintenance & fixes</li>
+          <li><i class='bx bx-check'></i> <span data-lang="pro_f1">Advanced backend</span></li>
+          <li><i class='bx bx-check'></i> <span data-lang="pro_f2">Firebase Cloud Functions & advanced services</span></li>
+          <li><i class='bx bx-check'></i> <span data-lang="pro_f3">Full authentication</span></li>
+          <li><i class='bx bx-check'></i> <span data-lang="pro_f4">UI research + wireframes</span></li>
+          <li><i class='bx bx-check'></i> <span data-lang="pro_f5">Architecture planning</span></li>
+          <li><i class='bx bx-check'></i> <span data-lang="pro_f6">Full development</span></li>
+          <li><i class='bx bx-check'></i> <span data-lang="pro_f7">QA closed testing (security, performance, functionality)</span></li>
+          <li><i class='bx bx-check'></i> <span data-lang="pro_f8">Client beta testing & multi-revision</span></li>
+          <li><i class='bx bx-check'></i> <span data-lang="pro_f9">Store publishing</span></li>
+          <li><i class='bx bx-check'></i> <span data-lang="pro_f10">Post-launch support, maintenance & fixes</span></li>
         </ul>
-        <a href="plan.html?plan=pro" class="btn-plan">Get Professional</a>
+        <a href="plan.html?plan=pro" class="btn-plan" data-lang="pro_btn">Get Professional</a>
       </div>
 
     </div>
@@ -212,45 +231,48 @@
     <!-- Payment notice -->
     <div class="plans-notice">
       <i class='bx bx-info-circle'></i>
-      <span>All plans are paid in milestones. Deposit is non-refundable. Work pauses if payment is overdue. Final files released after final payment.</span>
+      <span data-lang="plans_notice">All plans are paid in milestones. Deposit is non-refundable. Work pauses if payment is overdue. Final files released after final payment.</span>
     </div>
   </section>
 
   <!-- FEATURES -->
   <section class="features" id="features">
-    <div class="section-tag">App features</div>
-    <h2 class="section-title">Everything you need to go <span class="gradient-text">from idea to app</span></h2>
+    <div class="section-tag" data-lang="features_tag">App features</div>
+    <h2 class="section-title">
+      <span data-lang="features_h2_1">Everything you need to go</span>
+      <span class="gradient-text" data-lang="features_h2_highlight"> from idea to app</span>
+    </h2>
 
     <div class="features-grid">
       <div class="feature-item">
         <i class='bx bx-google'></i>
-        <h3>Google sign-in</h3>
-        <p>One tap to register or log in securely using your Google account. No passwords, no friction.</p>
+        <h3 data-lang="feat1_title">Google sign-in</h3>
+        <p data-lang="feat1_p">One tap to register or log in securely using your Google account. No passwords, no friction.</p>
       </div>
       <div class="feature-item">
         <i class='bx bx-bar-chart-alt-2'></i>
-        <h3>Live build tracking</h3>
-        <p>Watch your app get built in real time with a detailed progress dashboard, updated at every stage.</p>
+        <h3 data-lang="feat2_title">Live build tracking</h3>
+        <p data-lang="feat2_p">Watch your app get built in real time with a detailed progress dashboard, updated at every stage.</p>
       </div>
       <div class="feature-item">
         <i class='bx bx-mobile'></i>
-        <h3>In-app testing</h3>
-        <p>Receive a testable version of your app before it goes live. Click through it, break it, love it.</p>
+        <h3 data-lang="feat3_title">In-app testing</h3>
+        <p data-lang="feat3_p">Receive a testable version of your app before it goes live. Click through it, break it, love it.</p>
       </div>
       <div class="feature-item">
         <i class='bx bx-edit'></i>
-        <h3>Change requests</h3>
-        <p>Submit feedback and revision requests directly through the app. We implement, you approve.</p>
+        <h3 data-lang="feat4_title">Change requests</h3>
+        <p data-lang="feat4_p">Submit feedback and revision requests directly through the app. We implement, you approve.</p>
       </div>
       <div class="feature-item">
         <i class='bx bx-shield-quarter'></i>
-        <h3>Privacy-first</h3>
-        <p>No ads, no data selling, no tracking beyond what's needed to run your project. That's our promise.</p>
+        <h3 data-lang="feat5_title">Privacy-first</h3>
+        <p data-lang="feat5_p">No ads, no data selling, no tracking beyond what's needed to run your project. That's our promise.</p>
       </div>
       <div class="feature-item">
         <i class='bx bx-store'></i>
-        <h3>Play Store launch</h3>
-        <p>We handle the full Play Store submission and publication process so you don't have to.</p>
+        <h3 data-lang="feat6_title">Play Store launch</h3>
+        <p data-lang="feat6_p">We handle the full Play Store submission and publication process so you don't have to.</p>
       </div>
     </div>
   </section>
@@ -258,56 +280,64 @@
   <!-- PRIVACY POLICY -->
   <section class="policy" id="policy">
     <div class="policy-inner">
-      <div class="section-tag">Privacy policy</div>
-      <h2 class="section-title">Your data, <span class="gradient-text">your rights</span></h2>
-      <p class="section-sub">Amm Sa Appli is built on a simple principle: your data belongs to you. We collect only what we need to deliver your app, and we never show ads or sell your information.</p>
+      <div class="section-tag" data-lang="policy_tag">Privacy policy</div>
+      <h2 class="section-title">
+        <span data-lang="policy_h2_1">Your data,</span>
+        <span class="gradient-text" data-lang="policy_h2_highlight"> your rights</span>
+      </h2>
+      <p class="section-sub" data-lang="policy_sub">Amm Sa Appli is built on a simple principle: your data belongs to you. We collect only what we need to deliver your app, and we never show ads or sell your information.</p>
 
       <div class="policy-grid">
         <div class="policy-block">
           <div class="policy-icon"><i class='bx bx-data'></i></div>
-          <h3>Information we collect</h3>
-          <p>When you use the Application, we may collect your IP address, pages visited, time spent, operating system, approximate location, and build-related activity such as progress, test results, and change requests.</p>
+          <h3 data-lang="policy_b1_title">Information we collect</h3>
+          <p data-lang="policy_b1_p">When you use the Application, we may collect your IP address, pages visited, time spent, operating system, approximate location, and build-related activity such as progress, test results, and change requests.</p>
         </div>
         <div class="policy-block">
           <div class="policy-icon"><i class='bx bx-google'></i></div>
-          <h3>Google sign-in data</h3>
-          <p>Registration uses Google OAuth 2.0. We access your display name, profile photo, and email address only. We do not access your password, contacts, Drive, or any other Google data.</p>
+          <h3 data-lang="policy_b2_title">Google sign-in data</h3>
+          <p data-lang="policy_b2_p">Registration uses Google OAuth 2.0. We access your display name, profile photo, and email address only. We do not access your password, contacts, Drive, or any other Google data.</p>
         </div>
         <div class="policy-block">
           <div class="policy-icon" style="background:#eff6ff;color:#2563EB"><i class='bx bx-user-pin'></i></div>
-          <h3>Personal information</h3>
-          <p>To deliver your app project, we may also store your name, email, address, phone number, and any ID or documentation you provide for verification purposes (Professional plan).</p>
+          <h3 data-lang="policy_b3_title">Personal information</h3>
+          <p data-lang="policy_b3_p">To deliver your app project, we may also store your name, email, address, phone number, and any ID or documentation you provide for verification purposes (Professional plan).</p>
         </div>
         <div class="policy-block">
           <div class="policy-icon" style="background:#eff6ff;color:#2563EB"><i class='bx bx-block'></i></div>
-          <h3>No advertising — ever</h3>
-          <p>Amm Sa Appli contains zero advertisements. We do not use ad networks, we do not display third-party ads, and we will never sell your data to advertisers or marketing platforms.</p>
+          <h3 data-lang="policy_b4_title">No advertising — ever</h3>
+          <p data-lang="policy_b4_p">Amm Sa Appli contains zero advertisements. We do not use ad networks, we do not display third-party ads, and we will never sell your data to advertisers or marketing platforms.</p>
         </div>
         <div class="policy-block">
           <div class="policy-icon"><i class='bx bx-share-alt'></i></div>
-          <h3>Third-party access</h3>
-          <p>Only anonymized, aggregated data is shared with external services (Google Play, Firebase). We may disclose data when required by law or to protect user safety. We never share for advertising.</p>
+          <h3 data-lang="policy_b5_title">Third-party access</h3>
+          <p data-lang="policy_b5_p">Only anonymized, aggregated data is shared with external services (Google Play, Firebase). We may disclose data when required by law or to protect user safety. We never share for advertising.</p>
         </div>
         <div class="policy-block">
           <div class="policy-icon"><i class='bx bx-exit'></i></div>
-          <h3>Your rights & opt-out</h3>
-          <p>You can stop all data collection by uninstalling the app. To delete your account data, contact us at <a href="mailto:jaayma.application@gmail.com">jaayma.application@gmail.com</a>. We respond within a reasonable timeframe.</p>
+          <h3 data-lang="policy_b6_title">Your rights & opt-out</h3>
+          <p data-lang="policy_b6_p">You can stop all data collection by uninstalling the app. To delete your account data, contact us at <a href="mailto:jaayma.application@gmail.com">jaayma.application@gmail.com</a>. We respond within a reasonable timeframe.</p>
         </div>
         <div class="policy-block">
           <div class="policy-icon" style="background:#eff6ff;color:#2563EB"><i class='bx bx-child'></i></div>
-          <h3>Children</h3>
-          <p>The Application is not directed at children under 13. We do not knowingly collect data from minors. If we discover a child under 13 has registered, we delete their data immediately.</p>
+          <h3 data-lang="policy_b7_title">Children</h3>
+          <p data-lang="policy_b7_p">The Application is not directed at children under 13. We do not knowingly collect data from minors. If we discover a child under 13 has registered, we delete their data immediately.</p>
         </div>
         <div class="policy-block">
           <div class="policy-icon" style="background:#eff6ff;color:#2563EB"><i class='bx bx-shield-alt-2'></i></div>
-          <h3>Security</h3>
-          <p>We implement physical, electronic, and procedural safeguards to protect your information. Your project data is stored securely and accessible only to authorized team members.</p>
+          <h3 data-lang="policy_b8_title">Security</h3>
+          <p data-lang="policy_b8_p">We implement physical, electronic, and procedural safeguards to protect your information. Your project data is stored securely and accessible only to authorized team members.</p>
         </div>
       </div>
 
       <div class="policy-footer">
-        <p>This privacy policy is effective as of <strong>February 13, 2025</strong>. For questions, contact us at <a href="mailto:ammsaappli@gmail.com">ammsaappli@gmail.com</a>.</p>
-        <a href="policy.html" class="btn-outline">Read full policy</a>
+        <p>
+          <span data-lang="policy_date">This privacy policy is effective as of</span>
+          <strong data-lang="policy_date_val"> February 13, 2025</strong>.
+          <span data-lang="policy_questions"> For questions, contact us at</span>
+          <a href="mailto:ammsaappli@gmail.com">ammsaappli@gmail.com</a>.
+        </p>
+        <a href="policy.html" class="btn-outline" data-lang="policy_full_btn">Read full policy</a>
       </div>
     </div>
   </section>
@@ -315,62 +345,62 @@
   <!-- CONTACT -->
   <section class="contact" id="contact">
     <div class="contact-bg"></div>
-    <div class="section-tag light">Get started</div>
-    <h2 class="section-title light">Ready to build your app?</h2>
-    <p class="section-sub light">Sign in with your Google account and choose the plan that works for you. Our team will reach out within 24 hours to kick off your project.</p>
+    <div class="section-tag light" data-lang="contact_tag">Get started</div>
+    <h2 class="section-title light" data-lang="contact_h2">Ready to build your app?</h2>
+    <p class="section-sub light" data-lang="contact_sub">Sign in with your Google account and choose the plan that works for you. Our team will reach out within 24 hours to kick off your project.</p>
 
     <div class="contact-box">
       <div class="contact-info">
-        <h3>Get in touch</h3>
+        <h3 data-lang="contact_box_title">Get in touch</h3>
         <div class="contact-item">
           <i class='bx bx-envelope'></i>
           <div>
-            <span>Email</span>
+            <span data-lang="contact_email_label">Email</span>
             <a href="mailto:ammsaappli@gmail.com">jaayma.application@gmail.com</a>
           </div>
         </div>
         <div class="contact-item">
           <i class='bx bx-store-alt'></i>
           <div>
-            <span>Platform</span>
-            <a href="#">Available on Google Play Store</a>
+            <span data-lang="contact_platform_label">Platform</span>
+            <a href="#" data-lang="contact_platform_val">Available on Google Play Store</a>
           </div>
         </div>
         <div class="contact-item">
           <i class='bx bx-time-five'></i>
           <div>
-            <span>Response time</span>
-            <a href="#">Within 24 hours</a>
+            <span data-lang="contact_response_label">Response time</span>
+            <a href="#" data-lang="contact_response_val">Within 24 hours</a>
           </div>
         </div>
       </div>
 
       <form class="contact-form" onsubmit="handleSubmit(event)">
         <div class="form-group">
-          <label>Your name</label>
-          <input type="text" placeholder="e.g. Mamadou Diallo" required>
+          <label data-lang="form_name">Your name</label>
+          <input type="text" placeholder="e.g. Mamadou Diallo" data-lang-placeholder="form_name_ph" required>
         </div>
         <div class="form-group">
-          <label>Email address</label>
-          <input type="email" placeholder="your@email.com" required>
+          <label data-lang="form_email">Email address</label>
+          <input type="email" placeholder="your@email.com" data-lang-placeholder="form_email_ph" required>
         </div>
         <div class="form-group">
-          <label>Plan interested in</label>
+          <label data-lang="form_plan">Plan interested in</label>
           <select>
-            <option value="">Select a plan...</option>
-            <option>Basic — 200,000 FCFA</option>
-            <option>Medium — 600,000 FCFA</option>
-            <option>Professional — 1,400,000 FCFA</option>
+            <option value="" data-lang="form_plan_default">Select a plan...</option>
+            <option data-lang="form_plan_basic">Basic — 200,000 FCFA</option>
+            <option data-lang="form_plan_medium">Medium — 600,000 FCFA</option>
+            <option data-lang="form_plan_pro">Professional — 1,400,000 FCFA</option>
           </select>
         </div>
         <div class="form-group">
-          <label>Tell us about your app idea</label>
-          <textarea rows="4" placeholder="What does your app do? Who is it for?"></textarea>
+          <label data-lang="form_idea">Tell us about your app idea</label>
+          <textarea rows="4" placeholder="What does your app do? Who is it for?" data-lang-placeholder="form_idea_ph"></textarea>
         </div>
         <button type="submit" class="btn-submit">
-          <i class='bx bx-send'></i> Send message
+          <i class='bx bx-send'></i> <span data-lang="form_send">Send message</span>
         </button>
-        <p class="form-note"><i class='bx bx-lock-alt'></i> Your information is private and never shared with third parties.</p>
+        <p class="form-note"><i class='bx bx-lock-alt'></i> <span data-lang="form_note">Your information is private and never shared with third parties.</span></p>
       </form>
     </div>
   </section>
@@ -383,27 +413,27 @@
           <span class="logo-icon"><i class='bx bx-mobile-alt'></i></span>
           Amm Sa Appli
         </a>
-        <p>The no-code app creation platform that puts you in control — from idea to Play Store launch.</p>
-        <span class="footer-badge"><i class='bx bx-block'></i> Zero ads. Zero tracking. Zero compromise.</span>
+        <p data-lang="footer_tagline">The no-code app creation platform that puts you in control — from idea to Play Store launch.</p>
+        <span class="footer-badge"><i class='bx bx-block'></i> <span data-lang="footer_badge">Zero ads. Zero tracking. Zero compromise.</span></span>
       </div>
       <div class="footer-links">
         <div class="footer-col">
-          <h4>Navigate</h4>
-          <a href="#home">Home</a>
-          <a href="#about">About</a>
-          <a href="#plans">Plans</a>
-          <a href="#features">Features</a>
+          <h4 data-lang="footer_nav_title">Navigate</h4>
+          <a href="#home" data-lang="nav_home">Home</a>
+          <a href="#about" data-lang="nav_about">About</a>
+          <a href="#plans" data-lang="nav_plans">Plans</a>
+          <a href="#features" data-lang="nav_features">Features</a>
         </div>
         <div class="footer-col">
-          <h4>Legal</h4>
-          <a href="#policy">Privacy Policy</a>
-          <a href="policy.html">Full Policy</a>
-          <a href="#contact">Contact</a>
+          <h4 data-lang="footer_legal_title">Legal</h4>
+          <a href="#policy" data-lang="nav_privacy">Privacy Policy</a>
+          <a href="policy.html" data-lang="footer_full_policy">Full Policy</a>
+          <a href="#contact" data-lang="nav_contact">Contact</a>
         </div>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>Copyright &copy; 2025 by Amm Sa Appli | All Rights Reserved.</p>
+      <p data-lang="footer_copyright">Copyright &copy; 2025 by Amm Sa Appli | All Rights Reserved.</p>
       <a href="#home" class="back-top"><i class='bx bx-up-arrow-alt'></i></a>
     </div>
   </footer>

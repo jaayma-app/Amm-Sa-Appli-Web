@@ -190,6 +190,35 @@ img { max-width: 100%; }
 .navbar a:hover, .navbar a.active { color: var(--text); }
 .navbar a:hover::after, .navbar a.active::after { width: 100%; }
 
+.lang-switches {
+    display: flex;
+    gap: 0.5rem;
+    margin-left: 4rem;
+}
+
+.lang-switches .lang-btn {
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border: 2px solid var(--primary-dark);
+    color: var(--primary);        /* visible text color */
+    border-radius: 0.4rem;
+    margin-left: 0;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+}
+
+.lang-switches .lang-btn:hover {
+    background-color: var(--primary-dark);
+    color: #fff;                        /* white text on hover */
+}
+
+.lang-switches .lang-btn.active {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    color: #fff;                        /* white text when active */
+}
+
 .btn-header {
   font-family: var(--font-display);
   font-size: 0.85rem;
