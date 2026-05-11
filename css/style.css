@@ -796,6 +796,14 @@ img { max-width: 100%; }
 
 .policy-footer a.btn-outline {
   flex-shrink: 0;
+  color: var(--primary-light);
+  border-color: var(--primary);
+}
+
+.policy-footer a.btn-outline:hover {
+  flex-shrink: 0;
+  color: var(--primary);
+  border-color: var(--primary);
 }
 
 /* ===========================
