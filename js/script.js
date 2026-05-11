@@ -72,17 +72,62 @@ document.querySelectorAll('.about-grid, .plans-grid, .features-grid, .policy-gri
 });
 
 // Form submit handler
-function handleSubmit(e) {
-  e.preventDefault();
-  const btn = e.target.querySelector('.btn-submit');
-  btn.innerHTML = "<i class='bx bx-check'></i> Message sent!";
-  btn.style.background = '#3B6D11';
-  btn.disabled = true;
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzUZZ6lK86zlBkEOjgK-G3xpC5RAN_xwNYZLcxqrY6nSQwibZwlg4WZp1Yi5czZV9lx/exec';
 
-  setTimeout(() => {
-    btn.innerHTML = "<i class='bx bx-send'></i> Send message";
-    btn.style.background = '';
+async function handleSubmit(e) {
+  e.preventDefault();
+
+  const form = e.target;
+  const btn = form.querySelector('.btn-submit');
+  const inputs = form.querySelectorAll('input, select, textarea');
+
+  const name = inputs[0].value.trim();
+  const email = inputs[1].value.trim();
+  const plan = inputs[2].value;
+  const idea = inputs[3].value.trim();
+
+  if (!name || !email || !plan || !idea) {
+    showToast('Veuillez remplir tous les champs.', 'error');
+    return;
+  }
+
+  btn.disabled = true;
+  btn.innerHTML = "<i class='bx bx-loader-alt bx-spin'></i> Envoi en cours...";
+
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, plan, idea })
+    });
+
+    showToast("Message envoyé! Nous vous répondrons dans les 24 heures.", 'success');
+    form.reset();
+
+  } catch (err) {
+    showToast('Une erreur s\'est produite. Veuillez réessayer.', 'error');
+  } finally {
     btn.disabled = false;
-    e.target.reset();
-  }, 3000);
+    btn.innerHTML = "<i class='bx bx-send'></i> <span>Send message</span>";
+  }
+}
+
+function showToast(message, type) {
+  const existing = document.querySelector('.toast');
+  if (existing) existing.remove();
+
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+  toast.innerHTML = `
+    <i class='bx ${type === 'success' ? 'bx-check-circle' : 'bx-error-circle'}'></i>
+    <span>${message}</span>
+  `;
+  document.body.appendChild(toast);
+
+  setTimeout(() => toast.classList.add('toast-visible'), 10);
+  setTimeout(() => {
+    toast.classList.remove('toast-visible');
+    setTimeout(() => toast.remove(), 300);
+  }, 4000);
 }
