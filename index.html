@@ -14,7 +14,6 @@
   <!-- HEADER -->
   <header class="header">
     <a href="#home" class="logo">
-      <!-- <span class="logo-icon"><i class='bx bx-mobile-alt'></i></span> -->
       <span class="logo-icon"><img src="images/logo.jpeg" alt="Amm Sa Appli logo" style="width:100%;height:100%;object-fit:cover;border-radius:10px;display:block;"></span>
       Amm Sa Appli
     </a>
@@ -116,50 +115,70 @@
     <div class="plans-bg"></div>
     <div class="section-tag">Pricing</div>
     <h2 class="section-title">Pick the plan that fits <span class="gradient-text">your project</span></h2>
-    <p class="section-sub">Every plan includes live build tracking, a test version of your app, and the ability to request changes before going live on the Play Store.</p>
+    <p class="section-sub">Every plan includes live build tracking, a test version of your app, and Play Store submission. Plans are paid in milestones — you only pay for each phase when it's delivered.</p>
 
     <div class="plans-grid">
+
+      <!-- BASIC PLAN -->
       <div class="plan-card">
         <div class="plan-header">
           <div class="plan-icon"><i class='bx bx-rocket'></i></div>
           <div>
             <h3>Basic</h3>
-            <p>For simple, single-purpose apps</p>
+            <p>For simple, client-side apps</p>
           </div>
         </div>
+        <div class="plan-price">
+          <span class="price-amount">200,000</span>
+          <span class="price-currency">FCFA</span>
+          <span class="price-note">No server fees</span>
+        </div>
         <ul class="plan-features">
-          <li><i class='bx bx-check'></i> Google sign-in registration</li>
-          <li><i class='bx bx-check'></i> Live build progress tracking</li>
-          <li><i class='bx bx-check'></i> 1 test round</li>
-          <li><i class='bx bx-check'></i> Up to 3 change requests</li>
+          <li><i class='bx bx-check'></i> Client-side only (no backend)</li>
+          <li><i class='bx bx-check'></i> No authentication required</li>
+          <li><i class='bx bx-check'></i> Basic UI template</li>
+          <li><i class='bx bx-check'></i> Navigation defined</li>
+          <li><i class='bx bx-check'></i> Core development</li>
+          <li><i class='bx bx-check'></i> Closed testing (owner only)</li>
+          <li><i class='bx bx-check'></i> Minor revisions (1–2)</li>
           <li><i class='bx bx-check'></i> Play Store submission</li>
           <li class="muted"><i class='bx bx-x'></i> Custom UI design</li>
-          <li class="muted"><i class='bx bx-x'></i> Priority support</li>
+          <li class="muted"><i class='bx bx-x'></i> Backend / database</li>
         </ul>
-        <a href="#contact" class="btn-plan">Get Basic</a>
+        <a href="plan.html?plan=basic" class="btn-plan">Get Basic</a>
       </div>
 
+      <!-- MEDIUM PLAN -->
       <div class="plan-card featured">
         <div class="plan-badge">Most Popular</div>
         <div class="plan-header">
           <div class="plan-icon featured-icon"><i class='bx bx-diamond'></i></div>
           <div>
             <h3>Medium</h3>
-            <p>For feature-rich, polished apps</p>
+            <p>For feature-rich, connected apps</p>
           </div>
         </div>
+        <div class="plan-price">
+          <span class="price-amount">600,000</span>
+          <span class="price-currency">FCFA</span>
+          <span class="price-note">+ 35,000 FCFA/month (Firestore)</span>
+        </div>
         <ul class="plan-features">
-          <li><i class='bx bx-check'></i> Everything in Basic</li>
-          <li><i class='bx bx-check'></i> Custom UI design</li>
-          <li><i class='bx bx-check'></i> 2 test rounds</li>
-          <li><i class='bx bx-check'></i> Up to 8 change requests</li>
-          <li><i class='bx bx-check'></i> Faster delivery</li>
-          <li><i class='bx bx-check'></i> Email support</li>
-          <li class="muted"><i class='bx bx-x'></i> Priority support</li>
+          <li><i class='bx bx-check'></i> Managed backend</li>
+          <li><i class='bx bx-check'></i> Firestore + Storage</li>
+          <li><i class='bx bx-check'></i> Full Auth (Google sign-in)</li>
+          <li><i class='bx bx-check'></i> Custom UI sketching & wireframe</li>
+          <li><i class='bx bx-check'></i> User journey & database logic</li>
+          <li><i class='bx bx-check'></i> Full development</li>
+          <li><i class='bx bx-check'></i> Closed + client testing</li>
+          <li><i class='bx bx-check'></i> Revisions (up to 3)</li>
+          <li><i class='bx bx-check'></i> Play Store submission</li>
+          <li class="muted"><i class='bx bx-x'></i> Cloud Functions / advanced services</li>
         </ul>
-        <a href="#contact" class="btn-plan featured-btn">Get Medium</a>
+        <a href="plan.html?plan=medium" class="btn-plan featured-btn">Get Medium</a>
       </div>
 
+      <!-- PRO PLAN -->
       <div class="plan-card">
         <div class="plan-header">
           <div class="plan-icon pro-icon"><i class='bx bx-crown'></i></div>
@@ -168,17 +187,32 @@
             <p>For complex, high-end apps</p>
           </div>
         </div>
+        <div class="plan-price">
+          <span class="price-amount">1,400,000</span>
+          <span class="price-currency">FCFA</span>
+          <span class="price-note">+ 90,000 FCFA/month (Cloud)</span>
+        </div>
         <ul class="plan-features">
-          <li><i class='bx bx-check'></i> Everything in Medium</li>
-          <li><i class='bx bx-check'></i> Advanced features & integrations</li>
-          <li><i class='bx bx-check'></i> Unlimited test rounds</li>
-          <li><i class='bx bx-check'></i> Unlimited change requests</li>
-          <li><i class='bx bx-check'></i> Priority support</li>
-          <li><i class='bx bx-check'></i> Dedicated project manager</li>
-          <li><i class='bx bx-check'></i> Post-launch maintenance</li>
+          <li><i class='bx bx-check'></i> Advanced backend</li>
+          <li><i class='bx bx-check'></i> Firebase Cloud Functions & advanced services</li>
+          <li><i class='bx bx-check'></i> Full authentication</li>
+          <li><i class='bx bx-check'></i> UI research + wireframes</li>
+          <li><i class='bx bx-check'></i> Architecture planning</li>
+          <li><i class='bx bx-check'></i> Full development</li>
+          <li><i class='bx bx-check'></i> QA closed testing (security, performance, functionality)</li>
+          <li><i class='bx bx-check'></i> Client beta testing & multi-revision</li>
+          <li><i class='bx bx-check'></i> Store publishing</li>
+          <li><i class='bx bx-check'></i> Post-launch support, maintenance & fixes</li>
         </ul>
-        <a href="#contact" class="btn-plan">Get Professional</a>
+        <a href="plan.html?plan=pro" class="btn-plan">Get Professional</a>
       </div>
+
+    </div>
+
+    <!-- Payment notice -->
+    <div class="plans-notice">
+      <i class='bx bx-info-circle'></i>
+      <span>All plans are paid in milestones. Deposit is non-refundable. Work pauses if payment is overdue. Final files released after final payment.</span>
     </div>
   </section>
 
@@ -229,55 +263,46 @@
       <p class="section-sub">Amm Sa Appli is built on a simple principle: your data belongs to you. We collect only what we need to deliver your app, and we never show ads or sell your information.</p>
 
       <div class="policy-grid">
-
         <div class="policy-block">
           <div class="policy-icon"><i class='bx bx-data'></i></div>
           <h3>Information we collect</h3>
           <p>When you use the Application, we may collect your IP address, pages visited, time spent, operating system, approximate location, and build-related activity such as progress, test results, and change requests.</p>
         </div>
-
         <div class="policy-block">
           <div class="policy-icon"><i class='bx bx-google'></i></div>
           <h3>Google sign-in data</h3>
           <p>Registration uses Google OAuth 2.0. We access your display name, profile photo, and email address only. We do not access your password, contacts, Drive, or any other Google data.</p>
         </div>
-
         <div class="policy-block">
           <div class="policy-icon" style="background:#eff6ff;color:#2563EB"><i class='bx bx-user-pin'></i></div>
           <h3>Personal information</h3>
           <p>To deliver your app project, we may also store your name, email, address, phone number, and any ID or documentation you provide for verification purposes (Professional plan).</p>
         </div>
-
         <div class="policy-block">
           <div class="policy-icon" style="background:#eff6ff;color:#2563EB"><i class='bx bx-block'></i></div>
           <h3>No advertising — ever</h3>
           <p>Amm Sa Appli contains zero advertisements. We do not use ad networks, we do not display third-party ads, and we will never sell your data to advertisers or marketing platforms.</p>
         </div>
-
         <div class="policy-block">
           <div class="policy-icon"><i class='bx bx-share-alt'></i></div>
           <h3>Third-party access</h3>
           <p>Only anonymized, aggregated data is shared with external services (Google Play, Firebase). We may disclose data when required by law or to protect user safety. We never share for advertising.</p>
         </div>
-
         <div class="policy-block">
           <div class="policy-icon"><i class='bx bx-exit'></i></div>
           <h3>Your rights & opt-out</h3>
           <p>You can stop all data collection by uninstalling the app. To delete your account data, contact us at <a href="mailto:jaayma.application@gmail.com">jaayma.application@gmail.com</a>. We respond within a reasonable timeframe.</p>
         </div>
-
         <div class="policy-block">
           <div class="policy-icon" style="background:#eff6ff;color:#2563EB"><i class='bx bx-child'></i></div>
           <h3>Children</h3>
           <p>The Application is not directed at children under 13. We do not knowingly collect data from minors. If we discover a child under 13 has registered, we delete their data immediately.</p>
         </div>
-
         <div class="policy-block">
           <div class="policy-icon" style="background:#eff6ff;color:#2563EB"><i class='bx bx-shield-alt-2'></i></div>
           <h3>Security</h3>
           <p>We implement physical, electronic, and procedural safeguards to protect your information. Your project data is stored securely and accessible only to authorized team members.</p>
         </div>
-
       </div>
 
       <div class="policy-footer">
@@ -333,9 +358,9 @@
           <label>Plan interested in</label>
           <select>
             <option value="">Select a plan...</option>
-            <option>Basic</option>
-            <option>Medium</option>
-            <option>Professional</option>
+            <option>Basic — 200,000 FCFA</option>
+            <option>Medium — 600,000 FCFA</option>
+            <option>Professional — 1,400,000 FCFA</option>
           </select>
         </div>
         <div class="form-group">
@@ -382,6 +407,63 @@
       <a href="#home" class="back-top"><i class='bx bx-up-arrow-alt'></i></a>
     </div>
   </footer>
+
+  <style>
+    /* Plan price block */
+    .plan-price {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      margin: 16px 0 4px;
+      flex-wrap: wrap;
+    }
+    .price-amount {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--text-color, #111);
+      font-family: 'Syne', sans-serif;
+    }
+    .price-currency {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-color, #111);
+      opacity: 0.7;
+    }
+    .price-note {
+      display: block;
+      width: 100%;
+      font-size: 0.75rem;
+      color: #888;
+      margin-top: 2px;
+      font-style: italic;
+    }
+    .plan-card.featured .price-amount,
+    .plan-card.featured .price-currency {
+      color: #fff;
+    }
+    .plan-card.featured .price-note {
+      color: rgba(255,255,255,0.65);
+    }
+    /* Plans notice */
+    .plans-notice {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      max-width: 700px;
+      margin: 36px auto 0;
+      background: #f0e9fd;
+      border-left: 4px solid #6820EC;
+      border-radius: 8px;
+      padding: 14px 20px;
+      font-size: 0.88rem;
+      color: #444;
+    }
+    .plans-notice i {
+      font-size: 1.4rem;
+      color: #6820EC;
+      flex-shrink: 0;
+    }
+  </style>
 
   <script src="js/script.js"></script>
 </body>

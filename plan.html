@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plan Details — Amm Sa Appli</title>
+  <link href="images/logo.ico" rel="icon">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ─── PAGE LAYOUT ─── */
+    body { background: #f7f5ff; }
+
+    .plan-detail-page {
+      min-height: 100vh;
+      padding: 100px 20px 60px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      color: #6820EC;
+      text-decoration: none;
+      margin-bottom: 32px;
+      font-weight: 500;
+      transition: gap 0.2s;
+    }
+    .back-btn:hover { gap: 10px; }
+
+    /* ─── PLAN HERO ─── */
+    .plan-hero {
+      background: linear-gradient(135deg, #6820EC 0%, #2563EB 100%);
+      border-radius: 24px;
+      padding: 44px 40px;
+      color: #fff;
+      margin-bottom: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .plan-hero::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 240px; height: 240px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+    }
+    .plan-hero-tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 100px;
+      padding: 4px 16px;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-family: 'DM Sans', sans-serif;
+      margin-bottom: 14px;
+    }
+    .plan-hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      margin: 0 0 8px;
+    }
+    .plan-hero p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      opacity: 0.85;
+      margin: 0 0 28px;
+    }
+    .plan-hero-price {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .plan-hero-price .amt {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.6rem;
+      font-weight: 800;
+    }
+    .plan-hero-price .cur { font-size: 1.1rem; opacity: 0.8; }
+    .plan-hero-price .sub {
+      font-size: 0.82rem;
+      opacity: 0.65;
+      font-family: 'DM Sans', sans-serif;
+      margin-left: 4px;
+    }
+
+    /* ─── WHAT'S INCLUDED ─── */
+    .section-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 32px 36px;
+      margin-bottom: 28px;
+      box-shadow: 0 2px 20px rgba(104,32,236,0.06);
+    }
+    .section-card h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin: 0 0 22px;
+      color: #111;
+    }
+    .section-card h2 i {
+      margin-right: 8px;
+      color: #6820EC;
+    }
+
+    .features-list {
+      list-style: none;
+      padding: 0; margin: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    @media (max-width: 580px) {
+      .features-list { grid-template-columns: 1fr; }
+      .plan-hero { padding: 30px 22px; }
+      .section-card { padding: 24px 20px; }
+    }
+    .features-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.92rem;
+      color: #333;
+      line-height: 1.4;
+    }
+    .features-list li i {
+      color: #6820EC;
+      font-size: 1.1rem;
+      margin-top: 1px;
+      flex-shrink: 0;
+    }
+    .features-list li.muted { color: #aaa; }
+    .features-list li.muted i { color: #ccc; }
+
+    /* ─── WORKFLOW STEPS ─── */
+    .workflow-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .workflow-step {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      position: relative;
+    }
+    .workflow-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 17px;
+      top: 38px;
+      width: 2px;
+      height: calc(100% - 14px);
+      background: linear-gradient(to bottom, #6820EC33, #2563EB22);
+    }
+    .step-dot {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #6820EC, #2563EB);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.82rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .step-body {
+      padding-bottom: 24px;
+    }
+    .step-body h4 {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin: 4px 0 4px;
+      color: #111;
+    }
+    .step-body p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      color: #666;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* ─── PAYMENT TABLE ─── */
+    .milestone-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+    }
+    .milestone-table thead tr {
+      background: linear-gradient(90deg, #6820EC, #2563EB);
+      color: #fff;
+    }
+    .milestone-table th {
+      padding: 12px 16px;
+      text-align: left;
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 0.82rem;
+      letter-spacing: 0.04em;
+    }
+    .milestone-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid #f0eaff;
+      color: #333;
+      vertical-align: middle;
+    }
+    .milestone-table tbody tr:last-child td { border-bottom: none; }
+    .milestone-table tbody tr:nth-child(even) { background: #faf8ff; }
+    .milestone-table tbody tr:hover { background: #f0e9fd; }
+    .pct-badge {
+      display: inline-block;
+      background: #6820EC18;
+      color: #6820EC;
+      border-radius: 100px;
+      padding: 2px 10px;
+      font-weight: 600;
+      font-size: 0.82rem;
+    }
+    .amount-cell {
+      font-weight: 700;
+      color: #111;
+    }
+    .time-cell {
+      color: #888;
+      font-size: 0.82rem;
+      white-space: nowrap;
+    }
+    .table-total {
+      background: linear-gradient(90deg, #f0e9fd, #eff6ff) !important;
+    }
+    .table-total td {
+      font-weight: 700;
+      font-family: 'Syne', sans-serif;
+      color: #6820EC;
+      border-top: 2px solid #6820EC33;
+    }
+
+    /* ─── PAYMENT RULES ─── */
+    .rules-list {
+      list-style: none;
+      padding: 0; margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .rules-list li {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      color: #444;
+    }
+    .rules-list li i {
+      color: #6820EC;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ─── CTA ─── */
+    .plan-cta {
+      text-align: center;
+      margin-top: 36px;
+    }
+    .plan-cta a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #6820EC, #2563EB);
+      color: #fff;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 16px 40px;
+      border-radius: 100px;
+      text-decoration: none;
+      box-shadow: 0 8px 24px rgba(104,32,236,0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .plan-cta a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(104,32,236,0.4);
+    }
+
+    /* ─── HEADER (simplified) ─── */
+    .header { position: fixed; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <a href="index.html#home" class="logo">
+      <span class="logo-icon"><i class='bx bx-mobile-alt'></i></span>
+      Amm Sa Appli
+    </a>
+    <nav class="navbar">
+      <a href="index.html#home">Home</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#plans" class="active">Plans</a>
+      <a href="index.html#features">Features</a>
+      <a href="index.html#policy">Privacy</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <a href="index.html#contact" class="btn-header">Get Started</a>
+    <i class='bx bx-menu' id="menu-icon"></i>
+  </header>
+
+  <div class="plan-detail-page" id="planPage">
+    <!-- Content injected by JS -->
+  </div>
+
+  <script src="js/script.js"></script>
+  <script>
+    const PLANS = {
+      basic: {
+        tag: 'Basic Plan',
+        name: 'Basic',
+        subtitle: 'For simple, client-side apps with no backend',
+        price: '200,000',
+        currency: 'FCFA',
+        priceNote: 'No server fees · Optional support: 10,000–25,000 FCFA/month',
+        color1: '#6820EC',
+        color2: '#2563EB',
+        icon: 'bx-rocket',
+        included: [
+          { text: 'Client-side only (no backend)', ok: true },
+          { text: 'No authentication required', ok: true },
+          { text: 'Basic UI template (no customizing)', ok: true },
+          { text: 'Navigation defined', ok: true },
+          { text: 'Core development', ok: true },
+          { text: 'Closed testing (owner only)', ok: true },
+          { text: 'Minor revisions (1–2)', ok: true },
+          { text: 'Play Store submission & final delivery', ok: true },
+          { text: 'Custom UI design', ok: false },
+          { text: 'Backend / database', ok: false },
+          { text: 'Authentication', ok: false },
+        ],
+        workflow: [
+          { label: 'Kickoff', desc: 'You provide: app type, name, goal, icon.' },
+          { label: 'Basic UI Template', desc: 'We set up a standard UI template and define the navigation flow.' },
+          { label: 'Development', desc: 'Core client-side app is built — no backend or server logic.' },
+          { label: 'Closed Testing', desc: 'You test the app privately and provide feedback.' },
+          { label: 'Minor Revisions', desc: 'Up to 1–2 revision rounds based on your feedback.' },
+          { label: 'Final Delivery', desc: 'App is submitted to the Play Store and delivered to you.' },
+        ],
+        milestones: [
+          { name: 'Deposit', deliverable: 'Project start + requirement analysis', pct: '20%', amount: '40,000 CFA', time: 'Days 1–2' },
+          { name: 'Design', deliverable: 'UI template selection & approval', pct: '20%', amount: '40,000 CFA', time: 'Days 2–4' },
+          { name: 'Development', deliverable: 'Core app development complete', pct: '35%', amount: '70,000 CFA', time: 'Days 4–7' },
+          { name: 'Delivery / Launch', deliverable: 'Testing + Play Store launch', pct: '25%', amount: '50,000 CFA', time: 'Days 7–14' },
+        ],
+        total: '200,000 CFA',
+      },
+
+      medium: {
+        tag: 'Medium Plan',
+        name: 'Medium',
+        subtitle: 'For feature-rich apps with a backend and custom design',
+        price: '600,000',
+        currency: 'FCFA',
+        priceNote: '+ 35,000 FCFA/month (Firestore + Storage)',
+        color1: '#6820EC',
+        color2: '#2563EB',
+        icon: 'bx-diamond',
+        included: [
+          { text: 'Managed backend', ok: true },
+          { text: 'Firestore + Storage integration', ok: true },
+          { text: 'Full Auth — Google sign-in', ok: true },
+          { text: 'Custom UI sketching & wireframe', ok: true },
+          { text: 'User journey & database logic', ok: true },
+          { text: 'Full frontend + Firebase development', ok: true },
+          { text: 'Closed testing + client testing', ok: true },
+          { text: 'Revisions (up to 3)', ok: true },
+          { text: 'Play Store submission & final delivery', ok: true },
+          { text: 'Firebase Cloud Functions', ok: false },
+          { text: 'Advanced backend services', ok: false },
+        ],
+        workflow: [
+          { label: 'Kickoff', desc: 'You provide: goals, features, app type, icon, name.' },
+          { label: 'UI Sketching & Wireframe', desc: 'Custom wireframes designed for your user journey.' },
+          { label: 'UI Design', desc: 'Final screens approved by you before development begins.' },
+          { label: 'Development', desc: 'Frontend built with full Firebase backend, Firestore & Google Auth.' },
+          { label: 'Testing', desc: 'Internal closed testing followed by client testing.' },
+          { label: 'Revisions', desc: 'Up to 3 revision rounds based on your feedback.' },
+          { label: 'Production Launch', desc: 'Final release to the Play Store.' },
+        ],
+        milestones: [
+          { name: 'Deposit', deliverable: 'Kickoff + requirements analysis', pct: '20%', amount: '120,000 CFA', time: 'Days 2–6' },
+          { name: 'Wireframes', deliverable: 'UI sketches approved', pct: '15%', amount: '90,000 CFA', time: 'Days 3–5' },
+          { name: 'Design', deliverable: 'Final UI approved', pct: '20%', amount: '120,000 CFA', time: 'Days 4–7' },
+          { name: 'Development', deliverable: 'Frontend + Firebase integration', pct: '25%', amount: '150,000 CFA', time: 'Days 8–16' },
+          { name: 'Testing', deliverable: 'Beta testing & revisions', pct: '10%', amount: '60,000 CFA', time: 'Days 3–7' },
+          { name: 'Production Launch', deliverable: 'Final release', pct: '10%', amount: '60,000 CFA', time: 'Days 7–14' },
+        ],
+        total: '600,000 CFA',
+      },
+
+      pro: {
+        tag: 'Professional Plan',
+        name: 'Professional',
+        subtitle: 'For complex, high-end apps requiring architecture, cloud services & post-launch support',
+        price: '1,400,000',
+        currency: 'FCFA',
+        priceNote: '+ 90,000 FCFA/month (Cloud Functions & advanced services)',
+        color1: '#1a0a3d',
+        color2: '#6820EC',
+        icon: 'bx-crown',
+        included: [
+          { text: 'Advanced backend', ok: true },
+          { text: 'Firebase Cloud Functions & advanced services', ok: true },
+          { text: 'Full authentication', ok: true },
+          { text: 'UI research + wireframes', ok: true },
+          { text: 'Architecture planning', ok: true },
+          { text: 'Full development', ok: true },
+          { text: 'QA closed testing (security, performance, functionality)', ok: true },
+          { text: 'Client beta testing', ok: true },
+          { text: 'Multi-revision rounds', ok: true },
+          { text: 'Store publishing', ok: true },
+          { text: 'Post-launch support, maintenance & fixes', ok: true },
+        ],
+        workflow: [
+          { label: 'Discovery', desc: 'You provide: goals, competitor analysis, monetization strategy, documents.' },
+          { label: 'Strategy & Architecture', desc: 'Full architecture plan and technical strategy defined.' },
+          { label: 'UX / Wireframes', desc: 'UI research and detailed wireframes created.' },
+          { label: 'UI Design', desc: 'Full design approved by you across all screens.' },
+          { label: 'Core Development', desc: 'Main app build with full backend and Cloud Functions.' },
+          { label: 'Backend', desc: 'Cloud Functions, APIs, and advanced Firebase services integrated.' },
+          { label: 'QA / Beta', desc: 'Security, performance, and functionality testing. Client beta.' },
+          { label: 'Launch & Support', desc: 'Store publishing, post-launch support, maintenance, and bug fixes.' },
+        ],
+        milestones: [
+          { name: 'Deposit', deliverable: 'Discovery + planning', pct: '20%', amount: '280,000 CFA', time: 'Days 2–4' },
+          { name: 'UX / Wireframes', deliverable: 'Architecture + sketch', pct: '15%', amount: '210,000 CFA', time: 'Days 3–5' },
+          { name: 'UI Design', deliverable: 'Full design approved', pct: '15%', amount: '210,000 CFA', time: 'Days 4–7' },
+          { name: 'Core Development', deliverable: 'Main build complete', pct: '20%', amount: '280,000 CFA', time: 'Days 10–20' },
+          { name: 'Backend', deliverable: 'Cloud Functions + APIs', pct: '15%', amount: '210,000 CFA', time: 'Days 7–16' },
+          { name: 'QA / Beta', deliverable: 'Testing + beta + revisions', pct: '10%', amount: '140,000 CFA', time: 'Days 5–10' },
+          { name: 'Launch / Production', deliverable: 'Final delivery', pct: '5%', amount: '70,000 CFA', time: 'Days 7–10' },
+        ],
+        total: '1,400,000 CFA',
+      },
+    };
+
+    function getPlanFromURL() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('plan') || 'basic';
+    }
+
+    function renderPlan(planKey) {
+      const plan = PLANS[planKey];
+      if (!plan) {
+        document.getElementById('planPage').innerHTML = '<p>Plan not found. <a href="index.html#plans">Go back</a></p>';
+        return;
+      }
+
+      document.title = `${plan.name} Plan — Amm Sa Appli`;
+
+      const workflowHTML = plan.workflow.map((s, i) => `
+        <div class="workflow-step">
+          <div class="step-dot">${i + 1}</div>
+          <div class="step-body">
+            <h4>${s.label}</h4>
+            <p>${s.desc}</p>
+          </div>
+        </div>
+      `).join('');
+
+      const milestonesHTML = plan.milestones.map(m => `
+        <tr>
+          <td><strong>${m.name}</strong></td>
+          <td>${m.deliverable}</td>
+          <td><span class="pct-badge">${m.pct}</span></td>
+          <td class="amount-cell">${m.amount}</td>
+          <td class="time-cell">${m.time}</td>
+        </tr>
+      `).join('');
+
+      const includedHTML = plan.included.map(f => `
+        <li class="${f.ok ? '' : 'muted'}">
+          <i class='bx ${f.ok ? 'bx-check-circle' : 'bx-x-circle'}'></i>
+          ${f.text}
+        </li>
+      `).join('');
+
+      document.getElementById('planPage').innerHTML = `
+        <a href="index.html#plans" class="back-btn">
+          <i class='bx bx-arrow-back'></i> Back to plans
+        </a>
+
+        <div class="plan-hero" style="background: linear-gradient(135deg, ${plan.color1} 0%, ${plan.color2} 100%);">
+          <div class="plan-hero-tag"><i class='bx ${plan.icon}'></i> &nbsp;${plan.tag}</div>
+          <h1>${plan.name}</h1>
+          <p>${plan.subtitle}</p>
+          <div class="plan-hero-price">
+            <span class="amt">${plan.price}</span>
+            <span class="cur">${plan.currency}</span>
+            <span class="sub">${plan.priceNote}</span>
+          </div>
+        </div>
+
+        <div class="section-card">
+          <h2><i class='bx bx-list-check'></i> What's included</h2>
+          <ul class="features-list">${includedHTML}</ul>
+        </div>
+
+        <div class="section-card">
+          <h2><i class='bx bx-git-branch'></i> How it works — Workflow</h2>
+          <div class="workflow-steps">${workflowHTML}</div>
+        </div>
+
+        <div class="section-card">
+          <h2><i class='bx bx-credit-card'></i> Payment structure — Milestones</h2>
+          <div style="overflow-x:auto;">
+            <table class="milestone-table">
+              <thead>
+                <tr>
+                  <th>Milestone</th>
+                  <th>Deliverable</th>
+                  <th>%</th>
+                  <th>Amount</th>
+                  <th>Timeline</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${milestonesHTML}
+                <tr class="table-total">
+                  <td colspan="2"><strong>Total</strong></td>
+                  <td><span class="pct-badge">100%</span></td>
+                  <td colspan="2"><strong>${plan.total}</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="section-card">
+          <h2><i class='bx bx-info-circle'></i> Payment rules</h2>
+          <ul class="rules-list">
+            <li><i class='bx bx-x-circle'></i> <span>The deposit is <strong>non-refundable</strong>.</span></li>
+            <li><i class='bx bx-pause-circle'></i> <span>Work <strong>pauses</strong> if a payment becomes overdue. The next phase starts only after the previous payment is made.</span></li>
+            <li><i class='bx bx-lock'></i> <span>Final files are <strong>released only after the final payment</strong> is received.</span></li>
+          </ul>
+        </div>
+
+        <div class="plan-cta">
+          <a href="index.html#contact">
+            <i class='bx bx-send'></i> Get the ${plan.name} Plan
+          </a>
+        </div>
+      `;
+    }
+
+    renderPlan(getPlanFromURL());
+  </script>
+</body>
+</html>
