@@ -135,8 +135,24 @@ function showToast(message, type) {
 function openPlan(event, plan) {
     event.preventDefault();
 
-    const deepLink = `amm_sa_appli://plan/selection?plan=${plan}`;
+    const deepLink = `https://jaayma-app.github.io/Amm-Sa-Appli-Web/selection?plan=${plan}`;
     const fallback = `plan.html?plan=${plan}`;
+
+    // Trigger deep link without touching window.location
+    const anchor = document.createElement('a');
+    anchor.href = deepLink;
+    anchor.click();
+
+    setTimeout(() => {
+        window.location.href = fallback;
+    }, 1500);
+}
+
+function openPlanFromDetail(event, plan) {
+    event.preventDefault();
+
+    const deepLink = `https://jaayma-app.github.io/Amm-Sa-Appli-Web/selection?plan=${plan}`;
+    const fallback = `index.html#contact?plan=${plan}`;
 
     // Trigger deep link without touching window.location
     const anchor = document.createElement('a');
