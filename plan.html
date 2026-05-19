@@ -354,7 +354,10 @@
         <a href="#" class="lang-btn" onclick="changeLanguage('en'); return false;">EN</a>
         <a href="#" class="lang-btn" onclick="changeLanguage('fr'); return false;">FR</a>
     </div>
-    <a href="#" class="btn-header" data-lang="nav_get_started" onclick="openPlanFromDetail(event, getPlanFromURL())">Get Started</a>
+    <a href="#" class="btn-header" data-lang="nav_get_started"
+      onclick="window.location.href='index.html?plan=' + getPlanFromURL() + '#contact'; return false;">
+      Get Started
+    </a>
     <i class='bx bx-menu' id="menu-icon"></i>
     </header>
 

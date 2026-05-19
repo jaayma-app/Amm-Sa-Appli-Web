@@ -132,34 +132,19 @@ function showToast(message, type) {
   }, 4000);
 }
 
-function openPlan(event, plan) {
-    event.preventDefault();
+// Add this after your page loads
+const params = new URLSearchParams(window.location.search);
+const plan = params.get('plan');
 
-    const deepLink = `https://jaayma-app.github.io/Amm-Sa-Appli-Web/selection?plan=${plan}`;
-    const fallback = `plan.html?plan=${plan}`;
-
-    // Trigger deep link without touching window.location
-    const anchor = document.createElement('a');
-    anchor.href = deepLink;
-    anchor.click();
-
-    setTimeout(() => {
-        window.location.href = fallback;
-    }, 1500);
+if (plan) {
+    const select = document.querySelector('.contact-form select');
+    if (select) {
+        // Find and select the matching option
+        [...select.options].forEach(opt => {
+            if (opt.value.toLowerCase() === plan.toLowerCase()) {
+                opt.selected = true;
+            }
+        });
+    }
 }
 
-function openPlanFromDetail(event, plan) {
-    event.preventDefault();
-
-    const deepLink = `https://jaayma-app.github.io/Amm-Sa-Appli-Web/selection?plan=${plan}`;
-    const fallback = `index.html#contact?plan=${plan}`;
-
-    // Trigger deep link without touching window.location
-    const anchor = document.createElement('a');
-    anchor.href = deepLink;
-    anchor.click();
-
-    setTimeout(() => {
-        window.location.href = fallback;
-    }, 1500);
-}
