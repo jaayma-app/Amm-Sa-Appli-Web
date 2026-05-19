@@ -47,6 +47,8 @@ const en = {
   plans_sub: "Every plan includes live build tracking, a test version of your app, and Play Store submission. Plans are paid in milestones — you only pay for each phase when it's delivered.",
   plans_notice: "All plans are paid in milestones. Deposit is non-refundable. Work pauses if payment is overdue. Final files released after final payment.",
 
+  show_details: "Show Details",
+  
   // Basic
   basic_subtitle: "For simple, client-side apps",
   basic_price_note: "No server fees",

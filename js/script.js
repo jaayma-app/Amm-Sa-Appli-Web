@@ -131,3 +131,16 @@ function showToast(message, type) {
     setTimeout(() => toast.remove(), 300);
   }, 4000);
 }
+
+function openPlan(event, plan) {
+    event.preventDefault();
+
+    const deepLink = `amm_sa_appli://plan/selection?plan=${plan}`;
+    const fallback = `index.html#contact?plan=${plan}`;
+
+    window.location = deepLink;
+
+    setTimeout(() => {
+        window.location = fallback;
+    }, 1500);
+}

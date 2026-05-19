@@ -47,6 +47,8 @@ const fr = {
   plans_sub: "Chaque offre inclut le suivi de build en direct, une version test de votre application et la soumission sur le Play Store. Les offres sont payées par jalons — vous ne payez chaque phase qu'à sa livraison.",
   plans_notice: "Toutes les offres sont payées par jalons. L'acompte est non remboursable. Le travail est suspendu en cas de retard de paiement. Les fichiers finaux sont remis après le paiement final.",
 
+  show_details: "Voir en détail",
+
   // Basic
   basic_subtitle: "Pour les applications simples, côté client",
   basic_price_note: "Aucun frais serveur",
