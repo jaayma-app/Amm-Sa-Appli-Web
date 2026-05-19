@@ -136,11 +136,14 @@ function openPlan(event, plan) {
     event.preventDefault();
 
     const deepLink = `amm_sa_appli://plan/selection?plan=${plan}`;
-    const fallback = `index.html#contact?plan=${plan}`;
+    const fallback = `plan.html?plan=${plan}`;
 
-    window.location = deepLink;
+    // Trigger deep link without touching window.location
+    const anchor = document.createElement('a');
+    anchor.href = deepLink;
+    anchor.click();
 
     setTimeout(() => {
-        window.location = fallback;
+        window.location.href = fallback;
     }, 1500);
 }
