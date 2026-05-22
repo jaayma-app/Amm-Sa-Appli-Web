@@ -384,6 +384,19 @@
         price: '200,000', currency: 'FCFA',
         priceNote: () => t('basic_detail_price_note'),
         color1: '#6820EC', color2: '#2563EB', icon: 'bx-rocket',
+        categories: [
+            { key: 'plan_ca1', ok: true }, { key: 'plan_ca2', ok: true },
+            { key: 'plan_ca3', ok: true }, { key: 'plan_ca4', ok: true },
+            { key: 'plan_ca5', ok: true }, { key: 'plan_ca6', ok: true },
+            { key: 'plan_ca7', ok: true }, { key: 'plan_ca8', ok: true },
+            { key: 'plan_ca9', ok: false }, { key: 'plan_ca10', ok: false },
+            { key: 'plan_ca11', ok: false }, { key: 'plan_ca12', ok: false },
+            { key: 'plan_ca13', ok: false }, { key: 'plan_ca14', ok: false },
+            { key: 'plan_ca15', ok: false }, { key: 'plan_ca16', ok: false },
+            { key: 'plan_ca17', ok: false }, { key: 'plan_ca18', ok: false },
+            { key: 'plan_ca19', ok: false }, { key: 'plan_ca20', ok: false },
+            { key: 'plan_ca21', ok: false },
+        ],
         included: [
             { key: 'basic_di1', ok: true }, { key: 'basic_di2', ok: true },
             { key: 'basic_di3', ok: true }, { key: 'basic_di4', ok: true },
@@ -416,6 +429,19 @@
         price: '600,000', currency: 'FCFA',
         priceNote: () => t('medium_detail_price_note'),
         color1: '#6820EC', color2: '#2563EB', icon: 'bx-diamond',
+        categories: [
+            { key: 'plan_ca1', ok: true }, { key: 'plan_ca2', ok: true },
+            { key: 'plan_ca3', ok: true }, { key: 'plan_ca4', ok: true },
+            { key: 'plan_ca5', ok: true }, { key: 'plan_ca6', ok: true },
+            { key: 'plan_ca7', ok: true }, { key: 'plan_ca8', ok: true },
+            { key: 'plan_ca9', ok: true }, { key: 'plan_ca10', ok: true },
+            { key: 'plan_ca11', ok: true }, { key: 'plan_ca12', ok: true },
+            { key: 'plan_ca13', ok: true }, { key: 'plan_ca14', ok: true },
+            { key: 'plan_ca15', ok: true }, { key: 'plan_ca16', ok: true },
+            { key: 'plan_ca17', ok: true }, { key: 'plan_ca18', ok: false },
+            { key: 'plan_ca19', ok: false }, { key: 'plan_ca20', ok: false },
+            { key: 'plan_ca21', ok: false },
+        ],
         included: [
             { key: 'medium_di1', ok: true }, { key: 'medium_di2', ok: true },
             { key: 'medium_di3', ok: true }, { key: 'medium_di4', ok: true },
@@ -451,6 +477,19 @@
         price: '1,400,000', currency: 'FCFA',
         priceNote: () => t('pro_detail_price_note'),
         color1: '#1a0a3d', color2: '#6820EC', icon: 'bx-crown',
+        categories: [
+            { key: 'plan_ca1', ok: true }, { key: 'plan_ca2', ok: true },
+            { key: 'plan_ca3', ok: true }, { key: 'plan_ca4', ok: true },
+            { key: 'plan_ca5', ok: true }, { key: 'plan_ca6', ok: true },
+            { key: 'plan_ca7', ok: true }, { key: 'plan_ca8', ok: true },
+            { key: 'plan_ca9', ok: true }, { key: 'plan_ca10', ok: true },
+            { key: 'plan_ca11', ok: true }, { key: 'plan_ca12', ok: true },
+            { key: 'plan_ca13', ok: true }, { key: 'plan_ca14', ok: true },
+            { key: 'plan_ca15', ok: true }, { key: 'plan_ca16', ok: true },
+            { key: 'plan_ca17', ok: true }, { key: 'plan_ca18', ok: true },
+            { key: 'plan_ca19', ok: true }, { key: 'plan_ca20', ok: true },
+            { key: 'plan_ca21', ok: true },
+        ],
         included: [
             { key: 'pro_di1', ok: true }, { key: 'pro_di2', ok: true },
             { key: 'pro_di3', ok: true }, { key: 'pro_di4', ok: true },
@@ -520,6 +559,13 @@
         </tr>
         `).join('');
 
+        const categoriesHTML = plan.categories.map(f => `
+        <li class="${f.ok ? '' : 'muted'}">
+            <i class='bx ${f.ok ? 'bx-check-circle' : 'bx-x-circle'}'></i>
+            ${t(f.key)}
+        </li>
+        `).join('');
+
         const includedHTML = plan.included.map(f => `
         <li class="${f.ok ? '' : 'muted'}">
             <i class='bx ${f.ok ? 'bx-check-circle' : 'bx-x-circle'}'></i>
@@ -541,6 +587,11 @@
             <span class="cur">${plan.currency}</span>
             <span class="sub">${priceNote}</span>
             </div>
+        </div>
+
+        <div class="section-card">
+            <h2><i class='bx bx-list-check'></i> ${t('plan_categories_included')}</h2>
+            <ul class="features-list">${categoriesHTML}</ul>
         </div>
 
         <div class="section-card">
