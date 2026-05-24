@@ -686,6 +686,14 @@ img { max-width: 100%; }
   gap: 1.5rem;
 }
 
+#metricInvestment {
+  color: rgba(37, 99, 235, 0.9);
+}
+
+#metricRevenue {
+  color: rgba(104, 32, 236, 0.9);
+}
+
 .profit-metrics {
   display: grid;
   grid-template-columns: 1fr 1fr;

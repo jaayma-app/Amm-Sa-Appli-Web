@@ -299,7 +299,7 @@ profit_months_label: "Période de projection (mois)",
 profit_metric_investment: "Investissement total",
 profit_metric_revenue: "Revenus projetés",
 profit_metric_net: "Bénéfice net",
-profit_metric_roi: "ROI",
+profit_metric_roi: "RSI",
 profit_disclaimer: "Estimations uniquement. Les résultats réels dépendent de votre marché et de votre stratégie.",
 
 // ── Détail FORFAIT BASIC ──
