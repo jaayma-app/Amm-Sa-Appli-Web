@@ -148,3 +148,147 @@ if (plan) {
     }
 }
 
+const PROFIT_PLANS = {
+    basic:  { fee: 200000, adsSetup: 50000, hosting: 0 },
+    medium: { fee: 600000, adsSetup: 75000, hosting: 30000 },
+    pro:    { fee: 1400000, adsSetup: 90000, hosting: 100000 },
+  };
+
+  let profitPlan = 'basic';
+  let profitChartInstance = null;
+
+  function selectProfitPlan(plan, el) {
+    profitPlan = plan;
+    document.querySelectorAll('.profit-tab').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+    updateProfit();
+  }
+
+  function fmtNum(n) {
+    return Math.round(n).toLocaleString('fr-FR');
+  }
+
+  function updateProfit() {
+    const users   = parseInt(document.getElementById('profitUsers').value);
+    const arpu    = parseInt(document.getElementById('profitARPU').value);
+    const months  = parseInt(document.getElementById('profitMonths').value);
+    const adsOn   = document.getElementById('profitAdsToggle').checked;
+    const traffic = parseInt(document.getElementById('profitTraffic').value);
+
+    document.getElementById('profitUsersVal').textContent  = fmtNum(users);
+    document.getElementById('profitARPUVal').textContent   = fmtNum(arpu);
+    document.getElementById('profitMonthsVal').textContent = months + ' mo';
+
+    const tg = document.getElementById('profitTrafficGroup');
+    tg.style.display = adsOn ? 'block' : 'none';
+
+    const p = PROFIT_PLANS[profitPlan];
+    const setupCost   = p.fee + (adsOn ? p.adsSetup : 0);
+    const monthlyCost = p.hosting + (adsOn ? traffic : 0);
+    const totalCost   = setupCost + monthlyCost * months;
+
+    // Build per-month arrays
+    const labels   = [];
+    const revenues = [];
+    const costs    = [];
+    const nets     = [];
+
+    for (let m = 1; m <= months; m++) {
+      const rev       = users * arpu * m + (adsOn ? traffic * m : 0);
+      const costSoFar = setupCost + monthlyCost * m;
+      labels.push('M' + m);
+      revenues.push(rev);
+      costs.push(costSoFar);
+      nets.push(rev - costSoFar);
+    }
+
+    const totalRevenue = revenues[revenues.length - 1] || 0;
+    const netProfit    = totalRevenue - totalCost;
+    const roi          = totalCost > 0 ? ((netProfit / totalCost) * 100) : 0;
+
+    // Update metric cards
+    document.getElementById('metricInvestment').textContent = fmtNum(totalCost) + ' CFA';
+    document.getElementById('metricRevenue').textContent    = fmtNum(totalRevenue) + ' CFA';
+
+    const netEl = document.getElementById('metricNet');
+    netEl.textContent = fmtNum(netProfit) + ' CFA';
+    netEl.className   = 'profit-metric-val ' + (netProfit >= 0 ? 'positive' : 'negative');
+
+    const roiEl = document.getElementById('metricROI');
+    roiEl.textContent = roi.toFixed(1) + '%';
+    roiEl.className   = 'profit-metric-val ' + (roi >= 0 ? 'positive' : 'negative');
+
+    // Draw chart
+    const ctx = document.getElementById('profitChart').getContext('2d');
+    if (profitChartInstance) profitChartInstance.destroy();
+
+    profitChartInstance = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [
+          {
+            label: 'Revenue (CFA)',
+            data: revenues,
+            backgroundColor: 'rgba(104,32,236,0.7)',
+            borderRadius: 4,
+            order: 2,
+          },
+          {
+            label: 'Total Cost (CFA)',
+            data: costs,
+            backgroundColor: 'rgba(37,99,235,0.5)',
+            borderRadius: 4,
+            order: 2,
+          },
+          {
+            label: 'Net Profit (CFA)',
+            data: nets,
+            type: 'line',
+            borderColor: '#639922',
+            backgroundColor: 'rgba(99,153,34,0.1)',
+            borderWidth: 2,
+            pointRadius: months <= 12 ? 4 : 2,
+            fill: true,
+            tension: 0.4,
+            order: 1,
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: {
+            labels: {
+              color: '#9090b0',
+              font: { family: 'DM Sans', size: 11 },
+              boxWidth: 12,
+            }
+          },
+          tooltip: {
+            callbacks: {
+              label: ctx => ' ' + fmtNum(ctx.raw) + ' CFA'
+            }
+          }
+        },
+        scales: {
+          x: {
+            ticks: { color: '#9090b0', font: { size: 10 } },
+            grid:  { color: 'rgba(255,255,255,0.04)' }
+          },
+          y: {
+            ticks: {
+              color: '#9090b0',
+              font: { size: 10 },
+              callback: v => fmtNum(v)
+            },
+            grid: { color: 'rgba(255,255,255,0.04)' }
+          }
+        }
+      }
+    });
+  }
+
+  // Init on load
+  document.addEventListener('DOMContentLoaded', updateProfit);

@@ -508,6 +508,230 @@ img { max-width: 100%; }
 }
 
 /* ===========================
+   PROFIT / ROI ESTIMATOR
+=========================== */
+.profit {
+  padding: 7rem 6%;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.profit-bg {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(ellipse at 80% 50%, rgba(37,99,235,0.07) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.profit-container {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 2.5rem;
+  max-width: 1050px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+@media (max-width: 860px) {
+  .profit-container { grid-template-columns: 1fr; }
+}
+
+/* Inputs panel */
+.profit-inputs {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.profit-group label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-bottom: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Plan tabs */
+.profit-plan-tabs {
+  display: flex;
+  gap: 6px;
+}
+
+.profit-tab {
+  flex: 1;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.profit-tab:hover { border-color: var(--primary); color: var(--primary); }
+
+.profit-tab.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+/* Sliders */
+.profit-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.profit-slider-row input[type="range"] {
+  flex: 1;
+  -webkit-appearance: none;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+
+.profit-slider-row input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--primary);
+  cursor: pointer;
+  border: 2px solid var(--bg);
+}
+
+.profit-slider-val {
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--primary);
+  min-width: 60px;
+  text-align: right;
+}
+
+/* Ads toggle row */
+.profit-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+
+.profit-toggle-row span {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.profit-switch { position: relative; display: inline-block; width: 44px; height: 24px; cursor: pointer; }
+.profit-switch input { opacity: 0; width: 0; height: 0; position: absolute; }
+.profit-slider-track {
+  position: absolute; inset: 0;
+  background: var(--border);
+  border-radius: 24px;
+  transition: 0.3s;
+}
+.profit-slider-thumb {
+  position: absolute;
+  height: 18px; width: 18px;
+  left: 3px; bottom: 3px;
+  background: #fff;
+  border-radius: 50%;
+  transition: 0.3s;
+  display: block;
+}
+.profit-switch input:checked ~ .profit-slider-track { background: var(--primary); }
+.profit-switch input:checked ~ .profit-slider-track .profit-slider-thumb { transform: translateX(20px); }
+
+/* Traffic select */
+.profit-group select {
+  width: 100%;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  outline: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.profit-group select:focus { border-color: var(--primary); }
+.profit-group select option { background: var(--bg-card); }
+
+/* Results panel */
+.profit-results {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.profit-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.profit-metric {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.profit-metric-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.profit-metric-val {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.profit-metric-val.positive { color: #639922; }
+.profit-metric-val.negative { color: #e53e3e; }
+
+.profit-chart-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.profit-disclaimer {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-style: italic;
+  text-align: center;
+}
+
+/* ===========================
    PLANS
 =========================== */
 .plans {

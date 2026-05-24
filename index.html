@@ -12,6 +12,7 @@
   <script defer src="languages/fr.js"></script>
   <script defer src="js/language.js"></script>
   <script defer src="js/script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 
 </head>
 <body>
@@ -26,6 +27,7 @@
     <nav class="navbar">
       <a href="#home" class="active" data-lang="nav_home">Home</a>
       <a href="#about" data-lang="nav_about">About</a>
+      <a href="#profit" data-lang="nav_profit">Profit</a>
       <a href="#plans" data-lang="nav_plans">Plans</a>
       <a href="#features" data-lang="nav_features">Features</a>
       <a href="#policy" data-lang="nav_privacy">Privacy</a>
@@ -124,6 +126,110 @@
         <h3 data-lang="about_card4_title">Test & recommend</h3>
         <p data-lang="about_card4_p">Test your app before it's published and submit change requests directly through the platform.</p>
       </div>
+    </div>
+  </section>
+
+  <!-- PROFIT -->
+  <section class="profit" id="profit">
+    <div class="profit-bg"></div>
+    <div class="section-tag" data-lang="profit_tag">ROI Estimator</div>
+    <h2 class="section-title">
+      <span data-lang="profit_h2_1">Estimate your</span>
+      <span class="gradient-text" data-lang="profit_h2_highlight"> return on investment</span>
+    </h2>
+    <p class="section-sub" data-lang="profit_sub">Enter your business details and see how your chosen plan could generate revenue over time.</p>
+
+    <div class="profit-container">
+
+      <!-- INPUTS -->
+      <div class="profit-inputs">
+
+        <div class="profit-group">
+          <label data-lang="profit_plan_label">Your Plan</label>
+          <div class="profit-plan-tabs">
+            <button class="profit-tab active" data-plan="basic" onclick="selectProfitPlan('basic', this)">Basic</button>
+            <button class="profit-tab" data-plan="medium" onclick="selectProfitPlan('medium', this)">Medium</button>
+            <button class="profit-tab" data-plan="pro" onclick="selectProfitPlan('pro', this)">Professional</button>
+          </div>
+        </div>
+
+        <div class="profit-group">
+          <label data-lang="profit_users_label">Expected monthly active users</label>
+          <div class="profit-slider-row">
+            <input type="range" id="profitUsers" min="100" max="50000" step="100" value="1000" oninput="updateProfit()">
+            <span class="profit-slider-val" id="profitUsersVal">1,000</span>
+          </div>
+        </div>
+
+        <div class="profit-group">
+          <label data-lang="profit_arpu_label">Avg. revenue per user / month (FCFA)</label>
+          <div class="profit-slider-row">
+            <input type="range" id="profitARPU" min="100" max="20000" step="100" value="2000" oninput="updateProfit()">
+            <span class="profit-slider-val" id="profitARPUVal">2,000</span>
+          </div>
+        </div>
+
+        <div class="profit-group">
+          <label data-lang="profit_ads_label">Enable Ads Revenue</label>
+          <div class="profit-toggle-row">
+            <span data-lang="profit_ads_sub">+conversion income from ad traffic</span>
+            <label class="profit-switch">
+              <input type="checkbox" id="profitAdsToggle" onchange="updateProfit()">
+              <span class="profit-slider-track"><span class="profit-slider-thumb"></span></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="profit-group" id="profitTrafficGroup" style="display:none;">
+          <label data-lang="profit_traffic_label">Monthly ad traffic tier</label>
+          <select id="profitTraffic" onchange="updateProfit()">
+            <option value="35000">~500 users — 35,000 FCFA/mo</option>
+            <option value="65000">~1,000 users — 65,000 FCFA/mo</option>
+            <option value="150000">~2,500 users — 150,000 FCFA/mo</option>
+            <option value="280000">~5,000 users — 280,000 FCFA/mo</option>
+          </select>
+        </div>
+
+        <div class="profit-group">
+          <label data-lang="profit_months_label">Projection period (months)</label>
+          <div class="profit-slider-row">
+            <input type="range" id="profitMonths" min="1" max="24" step="1" value="12" oninput="updateProfit()">
+            <span class="profit-slider-val" id="profitMonthsVal">12 mo</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RESULTS -->
+      <div class="profit-results">
+
+        <div class="profit-metrics">
+          <div class="profit-metric">
+            <span class="profit-metric-label" data-lang="profit_metric_investment">Total Investment</span>
+            <span class="profit-metric-val" id="metricInvestment">—</span>
+          </div>
+          <div class="profit-metric">
+            <span class="profit-metric-label" data-lang="profit_metric_revenue">Projected Revenue</span>
+            <span class="profit-metric-val positive" id="metricRevenue">—</span>
+          </div>
+          <div class="profit-metric">
+            <span class="profit-metric-label" data-lang="profit_metric_net">Net Profit</span>
+            <span class="profit-metric-val" id="metricNet">—</span>
+          </div>
+          <div class="profit-metric">
+            <span class="profit-metric-label" data-lang="profit_metric_roi">ROI</span>
+            <span class="profit-metric-val" id="metricROI">—</span>
+          </div>
+        </div>
+
+        <div class="profit-chart-wrap">
+          <canvas id="profitChart" height="240"></canvas>
+        </div>
+
+        <p class="profit-disclaimer" data-lang="profit_disclaimer">Estimates only. Actual results depend on your market, execution, and growth strategy.</p>
+
+      </div>
+
     </div>
   </section>
 
