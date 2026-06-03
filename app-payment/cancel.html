@@ -1,0 +1,18 @@
+!DOCTYPE html>
+<html>
+<head>
+  <title>Payment Cancelled</title>
+</head>
+<body>
+  <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      
+      window.location.href = 'amm_sa_appli://payment/cancel';
+      
+      // Fallback for users who don't have the app
+      setTimeout(() => {
+        window.location.href = 'https://play.google.com/store/apps/details?id=com.jaayma.ammsaappli';
+      }, 2000);
+  </script>
+</body>
+</html>
