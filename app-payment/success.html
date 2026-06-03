@@ -5,14 +5,22 @@
 </head>
 <body>
   <script>
-      const urlParams = new URLSearchParams(window.location.search);
-      
-      window.location.href = 'amm_sa_appli://payment/success';
-      
-      // Fallback for users who don't have the app
-      setTimeout(() => {
-        window.location.href = 'https://play.google.com/store/apps/details?id=com.jaayma.ammsaappli';
-      }, 2000);
+    const appUrl = 'amm_sa_appli://payment/success';
+    const fallbackUrl = 'https://play.google.com/store/apps/details?id=com.jaayma.ammsaappli';
+
+    // Start the fallback timer BEFORE trying the deep link
+    const fallbackTimer = setTimeout(() => {
+      window.location.href = fallbackUrl;
+    }, 2000);
+
+    // When user returns to browser (app opened successfully), cancel the fallback
+    window.addEventListener('blur', () => {
+      clearTimeout(fallbackTimer);
+    });
+
+    window.location.href = appUrl;
   </script>
+
+  <p>Redirecting back to the app...</p>
 </body>
 </html>
