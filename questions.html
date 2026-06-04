@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frequently Asked Questions — Amm Sa Appli</title>
+  <link href="images/logo.ico" rel="icon">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="languages/en.js"></script>
+  <script src="languages/fr.js"></script>
+  <script src="js/language.js"></script>
+</head>
+<body>
+  <header class="header">
+    <a href="#home" class="logo">
+      <span class="logo-icon"><img src="images/logo.jpeg" alt="Amm Sa Appli logo" style="width:100%;height:100%;object-fit:cover;border-radius:10px;display:block;"></span>
+      Amm Sa Appli
+    </a>
+
+    <nav class="navbar">
+      <a href="#home" class="active" data-lang="nav_home">Home</a>
+      <a href="#about" data-lang="nav_about">About</a>
+      <a href="#plans" data-lang="nav_plans">Plans</a>
+      <a href="#features" data-lang="nav_features">Features</a>
+      <a href="#policy" data-lang="nav_privacy">Privacy</a>
+      <a href="#contact" data-lang="nav_contact">Contact</a>
+    </nav>
+
+    <div class="lang-switches">
+      <a href="#" class="lang-btn" onclick="changeLanguage('en'); return false;">EN</a>
+      <a href="#" class="lang-btn" onclick="changeLanguage('fr'); return false;">FR</a>
+    </div>
+
+    <a href="#contact" class="btn-header" data-lang="nav_get_started">Get Started</a>
+    <i class='bx bx-menu' id="menu-icon"></i>
+  </header>
+
+  <section class="questions">
+    <h1 data-i18n="questions_title">Frequently Asked Questions</h1>
+
+    <div class="question">
+      <h2 data-i18n="question1_title">How do I install Amm Sa Appli?</h2>
+      <p data-i18n="question1_answer">You can download the application from our official website and follow the installation instructions provided.</p>
+    </div>
+
+    <div class="question">
+      <h2 data-i18n="question2_title">Is Amm Sa Appli free to use?</h2>
+      <p data-i18n="question2_answer">Yes, Amm Sa Appli is completely free to use. We offer a premium version with additional features, but the basic version is free for everyone.</p>
+    </div>
+
+    <!-- Add more questions and answers as needed -->
+  </section>
+
+  <footer>
+    <p>&copy; 2024 Amm Sa Appli. All rights reserved.</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+</html>
