@@ -548,10 +548,16 @@
        loaded by languages/en.js and languages/fr.js
     ══════════════════════════════════════════════ */
     function t(key) {
-      const lang = localStorage.getItem('lang') || 'fr';
+      const lang = (typeof currentLanguage !== 'undefined' ? currentLanguage : 'fr');
       const dict = lang === 'fr' ? fr : en;
       return (dict && dict[key]) || key;
     }
+
+    // function t(key) {
+    //   const lang = localStorage.getItem('lang') || 'fr';
+    //   const dict = lang === 'fr' ? fr : en;
+    //   return (dict && dict[key]) || key;
+    // }
 
     /* ══════════════════════════════════════════════
        DATA — steps with plan visibility
