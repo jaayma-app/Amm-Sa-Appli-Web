@@ -11,51 +11,971 @@
   <script src="languages/en.js"></script>
   <script src="languages/fr.js"></script>
   <script src="js/language.js"></script>
+  <script src="js/script.js"></script>
+
+  <style>
+    /* ─── PAGE ─── */
+    body { background: #f7f5ff; }
+
+    .questions-page {
+      min-height: 100vh;
+      padding: 110px 20px 80px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    /* ─── HERO ─── */
+    .q-hero {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .q-hero-tag {
+      display: inline-block;
+      background: #6820EC18;
+      color: #6820EC;
+      border-radius: 100px;
+      padding: 5px 18px;
+      font-size: 0.78rem;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    .q-hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.9rem, 5vw, 2.8rem);
+      font-weight: 800;
+      color: #111;
+      margin: 0 0 12px;
+    }
+    .q-hero p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      color: #666;
+      max-width: 540px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ─── PLAN FILTER TABS ─── */
+    .plan-tabs {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    .plan-tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 10px 22px;
+      border-radius: 100px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all 0.22s;
+      background: #fff;
+      color: #555;
+      border-color: #e4dcff;
+      user-select: none;
+    }
+    .plan-tab i { font-size: 1rem; }
+    .plan-tab:hover { border-color: #6820EC; color: #6820EC; }
+    .plan-tab.active {
+      background: linear-gradient(135deg, #6820EC, #2563EB);
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 6px 18px rgba(104,32,236,0.28);
+    }
+
+    /* ─── SECTION LABEL ─── */
+    .steps-section-label {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #aaa;
+      margin: 0 0 14px 4px;
+    }
+
+    /* ─── ACCORDION ITEM ─── */
+    .accordion-item {
+      background: #fff;
+      border-radius: 18px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 16px rgba(104,32,236,0.06);
+      overflow: hidden;
+      transition: box-shadow 0.2s;
+    }
+    .accordion-item.open {
+      box-shadow: 0 6px 28px rgba(104,32,236,0.13);
+    }
+
+    .accordion-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 20px 24px;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.15s;
+    }
+    .accordion-header:hover { background: #faf8ff; }
+
+    .step-num {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #6820EC, #2563EB);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.82rem;
+      flex-shrink: 0;
+    }
+    .step-num.optional {
+      background: linear-gradient(135deg, #f59e0b, #ef4444);
+    }
+
+    .accordion-title-block { flex: 1; min-width: 0; }
+    .accordion-title-block h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.97rem;
+      font-weight: 700;
+      color: #111;
+      margin: 0 0 2px;
+    }
+    .accordion-title-block .email-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.76rem;
+      color: #6820EC;
+      background: #6820EC12;
+      padding: 2px 10px;
+      border-radius: 100px;
+      font-weight: 500;
+    }
+    .accordion-title-block .email-badge i { font-size: 0.85rem; }
+
+    .accordion-chevron {
+      color: #aaa;
+      font-size: 1.3rem;
+      transition: transform 0.28s cubic-bezier(0.34,1.56,0.64,1);
+      flex-shrink: 0;
+    }
+    .accordion-item.open .accordion-chevron { transform: rotate(180deg); color: #6820EC; }
+
+    /* ─── ACCORDION BODY ─── */
+    .accordion-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.38s cubic-bezier(0.4,0,0.2,1);
+    }
+    .accordion-body-inner {
+      padding: 0 24px 26px;
+      border-top: 1px solid #f0eaff;
+    }
+
+    /* ─── SENDS / ASKS BLOCKS ─── */
+    .deliverable-block {
+      margin-top: 18px;
+    }
+    .deliverable-block + .deliverable-block { margin-top: 20px; }
+
+    .block-label {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .block-label.sends { color: #6820EC; }
+    .block-label.asks  { color: #2563EB; }
+    .block-label i { font-size: 1rem; }
+
+    .deliverable-list {
+      list-style: none;
+      padding: 0; margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .deliverable-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      color: #333;
+      line-height: 1.45;
+      background: #faf8ff;
+      border-radius: 10px;
+      padding: 9px 13px;
+    }
+    .deliverable-list li i {
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .deliverable-list.sends-list li i { color: #6820EC; }
+    .deliverable-list.asks-list li i  { color: #2563EB; }
+    .deliverable-list.asks-list li    { background: #eff6ff; }
+
+    /* PDF preview pill */
+    .pdf-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #6820EC12;
+      color: #6820EC;
+      border-radius: 100px;
+      padding: 2px 10px;
+      font-size: 0.74rem;
+      font-weight: 600;
+      font-family: 'DM Sans', sans-serif;
+      margin-left: 6px;
+      vertical-align: middle;
+      cursor: pointer;
+      border: 1px solid #6820EC28;
+      transition: background 0.15s;
+    }
+    .pdf-pill:hover { background: #6820EC22; }
+    .pdf-pill i { font-size: 0.85rem; }
+
+    /* PDF modal */
+    .pdf-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10,0,30,0.6);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      backdrop-filter: blur(4px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.22s;
+    }
+    .pdf-modal-overlay.show { opacity: 1; pointer-events: all; }
+    .pdf-modal {
+      background: #fff;
+      border-radius: 20px;
+      max-width: 680px;
+      width: 100%;
+      max-height: 82vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 24px 80px rgba(104,32,236,0.22);
+      transform: translateY(14px) scale(0.97);
+      transition: transform 0.28s cubic-bezier(0.34,1.2,0.64,1);
+    }
+    .pdf-modal-overlay.show .pdf-modal { transform: translateY(0) scale(1); }
+    .pdf-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 22px;
+      border-bottom: 1px solid #f0eaff;
+    }
+    .pdf-modal-header h4 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #111;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .pdf-modal-header h4 i { color: #c0392b; }
+    .pdf-close {
+      background: #f7f5ff;
+      border: none;
+      border-radius: 50%;
+      width: 32px; height: 32px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: #666;
+      transition: background 0.15s;
+    }
+    .pdf-close:hover { background: #ede8ff; color: #6820EC; }
+    .pdf-modal-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px 22px;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    /* Simulated PDF document */
+    .pdf-doc {
+      border: 1px solid #e4dcff;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .pdf-doc-header {
+      background: linear-gradient(135deg, #6820EC, #2563EB);
+      color: #fff;
+      padding: 20px 24px 16px;
+    }
+    .pdf-doc-header .pdf-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 0.95rem;
+      opacity: 0.9;
+      margin-bottom: 8px;
+    }
+    .pdf-doc-header h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin: 0 0 4px;
+    }
+    .pdf-doc-header p {
+      font-size: 0.78rem;
+      opacity: 0.7;
+      margin: 0;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .pdf-doc-body { padding: 20px 24px; }
+    .pdf-section { margin-bottom: 18px; }
+    .pdf-section h5 {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: #6820EC;
+      margin: 0 0 8px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid #f0eaff;
+    }
+    .pdf-section p, .pdf-section li {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.84rem;
+      color: #444;
+      line-height: 1.55;
+      margin: 0;
+    }
+    .pdf-section ul {
+      padding-left: 18px;
+      margin: 6px 0 0;
+    }
+    .pdf-section ul li { margin-bottom: 3px; }
+    .pdf-meta-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .pdf-meta-chip {
+      background: #f7f5ff;
+      border: 1px solid #e4dcff;
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      color: #555;
+    }
+    .pdf-meta-chip strong { color: #6820EC; font-weight: 600; }
+    .pdf-placeholder-bar {
+      height: 8px;
+      border-radius: 4px;
+      background: #f0eaff;
+      margin: 6px 0;
+    }
+    .pdf-placeholder-bar.w80 { width: 80%; }
+    .pdf-placeholder-bar.w60 { width: 60%; }
+    .pdf-placeholder-bar.w90 { width: 90%; }
+    .pdf-placeholder-bar.w70 { width: 70%; }
+    .pdf-footer-note {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      color: #aaa;
+      text-align: center;
+      margin: 14px 0 12px;
+      font-style: italic;
+    }
+    .pdf-footer-actions {
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .pdf-open-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: linear-gradient(135deg, #c0392b, #e74c3c);
+      color: #fff;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.88rem;
+      padding: 11px 24px;
+      border-radius: 100px;
+      text-decoration: none;
+      box-shadow: 0 4px 16px rgba(192,57,43,0.28);
+      transition: transform 0.18s, box-shadow 0.18s;
+    }
+    .pdf-open-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(192,57,43,0.38);
+    }
+    .pdf-open-btn i { font-size: 1.05rem; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 580px) {
+      .plan-tab { padding: 9px 16px; font-size: 0.82rem; }
+      .accordion-header { padding: 16px 18px; }
+      .accordion-body-inner { padding: 0 18px 22px; }
+    }
+
+    /* ─── HEADER ─── */
+    .header { position: fixed; }
+
+    .lang-switches {
+      display: flex;
+      gap: 0.5rem;
+      margin-left: 4rem;
+    }
+    .lang-switches .lang-btn {
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 0.25rem 0.75rem;
+      border: 2px solid var(--primary-dark, #4a10c8);
+      color: var(--primary, #6820EC);
+      border-radius: 0.4rem;
+      margin-left: 0;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .lang-switches .lang-btn:hover { background-color: var(--primary-dark, #4a10c8); color: #fff; }
+    .lang-switches .lang-btn.active { background-color: var(--primary, #6820EC); border-color: var(--primary, #6820EC); color: #fff; }
+  </style>
 </head>
 <body>
+
+  <!-- HEADER -->
   <header class="header">
-    <a href="#home" class="logo">
+    <a href="index.html#home" class="logo">
       <span class="logo-icon"><img src="images/logo.jpeg" alt="Amm Sa Appli logo" style="width:100%;height:100%;object-fit:cover;border-radius:10px;display:block;"></span>
       Amm Sa Appli
     </a>
-
     <nav class="navbar">
-      <a href="#home" class="active" data-lang="nav_home">Home</a>
-      <a href="#about" data-lang="nav_about">About</a>
-      <a href="#plans" data-lang="nav_plans">Plans</a>
-      <a href="#features" data-lang="nav_features">Features</a>
-      <a href="#policy" data-lang="nav_privacy">Privacy</a>
-      <a href="#contact" data-lang="nav_contact">Contact</a>
+      <a href="index.html#home" data-lang="nav_home">Home</a>
+      <a href="index.html#about" data-lang="nav_about">About</a>
+      <a href="index.html#plans" data-lang="nav_plans">Plans</a>
+      <a href="index.html#features" data-lang="nav_features">Features</a>
+      <a href="index.html#policy" data-lang="nav_privacy">Privacy</a>
+      <a href="index.html#contact" data-lang="nav_contact">Contact</a>
     </nav>
-
     <div class="lang-switches">
       <a href="#" class="lang-btn" onclick="changeLanguage('en'); return false;">EN</a>
       <a href="#" class="lang-btn" onclick="changeLanguage('fr'); return false;">FR</a>
     </div>
-
-    <a href="#contact" class="btn-header" data-lang="nav_get_started">Get Started</a>
+    <a href="index.html#contact" class="btn-header" data-lang="nav_get_started">Get Started</a>
     <i class='bx bx-menu' id="menu-icon"></i>
   </header>
 
-  <section class="questions">
-    <h1 data-i18n="questions_title">Frequently Asked Questions</h1>
+  <div class="questions-page">
 
-    <div class="question">
-      <h2 data-i18n="question1_title">How do I install Amm Sa Appli?</h2>
-      <p data-i18n="question1_answer">You can download the application from our official website and follow the installation instructions provided.</p>
+    <!-- HERO -->
+    <div class="q-hero">
+      <div class="q-hero-tag"><i class='bx bx-help-circle'></i> &nbsp;Step-by-Step Guide</div>
+      <h1>What to Expect at Each Step</h1>
+      <p>At every milestone, here's exactly what we deliver to you — and what we'll need from you to move forward.</p>
     </div>
 
-    <div class="question">
-      <h2 data-i18n="question2_title">Is Amm Sa Appli free to use?</h2>
-      <p data-i18n="question2_answer">Yes, Amm Sa Appli is completely free to use. We offer a premium version with additional features, but the basic version is free for everyone.</p>
+    <!-- PLAN FILTER TABS -->
+    <div class="plan-tabs" id="planTabs">
+      <button class="plan-tab active" data-plan="basic" onclick="selectPlan('basic')">
+        <i class='bx bx-rocket'></i> Basic
+      </button>
+      <button class="plan-tab" data-plan="medium" onclick="selectPlan('medium')">
+        <i class='bx bx-diamond'></i> Medium
+      </button>
+      <button class="plan-tab" data-plan="pro" onclick="selectPlan('pro')">
+        <i class='bx bx-crown'></i> Pro
+      </button>
     </div>
 
-    <!-- Add more questions and answers as needed -->
-  </section>
+    <!-- ACCORDION CONTAINER -->
+    <div id="accordionContainer"></div>
 
-  <footer>
-    <p>&copy; 2024 Amm Sa Appli. All rights reserved.</p>
+  </div>
+
+  <!-- PDF MODAL -->
+  <div class="pdf-modal-overlay" id="pdfOverlay" onclick="closePdfModal(event)">
+    <div class="pdf-modal">
+      <div class="pdf-modal-header">
+        <h4><i class='bx bxs-file-pdf'></i> <span id="pdfModalTitle">Document Preview</span></h4>
+        <button class="pdf-close" onclick="closePdfModal(null)"><i class='bx bx-x'></i></button>
+      </div>
+      <div class="pdf-modal-body" id="pdfModalBody"></div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-bottom" style="margin-top:0; padding-top:0; border-top:none;">
+      <p data-lang="pp_footer">Copyright &copy; 2025 by Amm Sa Appli | All Rights Reserved.</p>
+      <a href="#" class="back-top"><i class='bx bx-up-arrow-alt'></i></a>
+    </div>
   </footer>
 
-  <script src="js/script.js"></script>
+  <script>
+    /* ══════════════════════════════════════════════
+       DATA — steps with plan visibility
+       plans: which plans show this step
+         'basic', 'medium', 'pro'  or  '*' for all
+       optional: true → shown for all but styled differently
+    ══════════════════════════════════════════════ */
+    const STEPS = [
+      {
+        num: 1,
+        title: "Deposit · Project Analysis & Planning",
+        emailSubject: "Project Analysis Completed",
+        plans: ['basic', 'medium', 'pro'],
+        sends: [
+          { text: "Project requirements summary", pdf: "requirements" },
+          { text: "List of requested features" },
+          { text: "Estimated timeline" },
+          { text: "Proposed architecture overview", pdf: "architecture" },
+          { text: "Next step explanation" },
+        ],
+        asks: [
+          "Confirm requirements",
+          "Report any missing features",
+        ],
+      },
+      {
+        num: 2,
+        title: "UX Wireframes",
+        emailSubject: "Wireframes Ready for Review",
+        plans: ['medium', 'pro'],
+        sends: [
+          { text: "Low-fidelity screens", pdf: "wireframes" },
+          { text: "User flow diagram", pdf: "userflow" },
+          { text: "Navigation structure" },
+        ],
+        asks: [
+          "Approve screen layouts",
+          "Suggest changes before design starts",
+        ],
+      },
+      {
+        num: 3,
+        title: "UI Design",
+        emailSubject: "UI Design Ready for Validation",
+        plans: ['medium', 'pro'],
+        sends: [
+          { text: "High-fidelity mockups (Figma link or PDF)", pdf: "ui_mockups" },
+          { text: "Color palette" },
+          { text: "Typography choices" },
+          { text: "Logo integration preview" },
+        ],
+        asks: [
+          "Approve visual design",
+          "Request final design changes",
+        ],
+      },
+      {
+        num: 4,
+        title: "Main Development",
+        emailSubject: "Development Progress Update",
+        plans: ['basic', 'medium', 'pro'],
+        sends: [
+          { text: "Screenshots/videos of implemented features" },
+          { text: "Feature completion checklist", pdf: "checklist" },
+          { text: "Test APK (if available)" },
+        ],
+        asks: [
+          "Review progress",
+          "Confirm functionality matches requirements",
+        ],
+      },
+      {
+        num: 5,
+        title: "Backend Server · API Development",
+        emailSubject: "Backend Infrastructure Completed",
+        plans: ['medium', 'pro'],
+        sends: [
+          { text: "API documentation", pdf: "api_docs" },
+          { text: "Database structure overview", pdf: "db_schema" },
+          { text: "Authentication flow explanation" },
+          { text: "Admin panel screenshots" },
+        ],
+        asks: [
+          "Validate business logic",
+          "Confirm data requirements",
+        ],
+      },
+      {
+        num: 6,
+        title: "QA & Beta Testing",
+        emailSubject: "Beta Version Available",
+        plans: ['basic', 'medium', 'pro'],
+        sends: [
+          { text: "Beta APK / TestFlight link" },
+          { text: "Testing guide", pdf: "testing_guide" },
+          { text: "Known issues list" },
+          { text: "Feedback form link" },
+        ],
+        asks: [
+          "Test application thoroughly",
+          "Report bugs and suggestions",
+        ],
+      },
+      {
+        num: 7,
+        title: "Launch",
+        emailSubject: "Application Successfully Launched",
+        plans: ['basic', 'medium', 'pro'],
+        sends: [
+          { text: "Play Store / App Store link" },
+          { text: "Website link (if applicable)" },
+          { text: "Admin credentials" },
+          { text: "User guide", pdf: "user_guide" },
+          { text: "Source code delivery confirmation (if included)" },
+        ],
+        asks: [
+          "Confirm successful deployment",
+        ],
+      },
+      {
+        num: 8,
+        title: "Advertisement Setup",
+        emailSubject: "Marketing Campaign Setup Completed",
+        plans: ['basic', 'medium', 'pro'],
+        optional: true,
+        sends: [
+          { text: "Campaign screenshots" },
+          { text: "Target audience settings summary", pdf: "campaign" },
+          { text: "Budget allocation breakdown" },
+          { text: "Tracking links" },
+        ],
+        asks: [
+          "Approve campaign launch",
+        ],
+      },
+      {
+        num: 9,
+        title: "Monthly Payment",
+        emailSubject: "Monthly Service Invoice",
+        plans: ['basic', 'medium', 'pro'],
+        optional: true,
+        sends: [
+          { text: "Invoice", pdf: "invoice" },
+          { text: "Hosting costs summary" },
+          { text: "Maintenance report" },
+          { text: "Ad spend report (if applicable)" },
+          { text: "Server uptime summary" },
+          { text: "Payment due date, methods & next billing date" },
+        ],
+        asks: [],
+      },
+    ];
+
+    /* ══════════════════════════════════════════════
+       PDF PREVIEWS — simulated document content
+    ══════════════════════════════════════════════ */
+    const PDF_PREVIEWS = {
+      requirements: {
+        title: "Project Requirements Summary",
+        subtitle: "Sent after initial deposit & consultation",
+        sections: [
+          { heading: "Project Overview", content: "This document outlines the agreed scope of work for your mobile application project. It serves as the reference point for all future development decisions." },
+          { heading: "Requested Features", list: ["User authentication (email + social login)", "Dashboard with real-time statistics", "Push notifications", "In-app payment integration", "Admin management panel"] },
+          { heading: "Platform & Tech Stack", list: ["Android (Kotlin)", "Firebase Firestore & Auth", "REST API (Node.js / TypeScript)", "Target: Android 8.0+"] },
+          { heading: "Estimated Timeline", content: null, bars: [
+            { label: "Analysis & Planning", w: 'w80' },
+            { label: "Design Phase", w: 'w60' },
+            { label: "Development", w: 'w90' },
+            { label: "QA & Launch", w: 'w70' },
+          ]},
+        ]
+      },
+      architecture: {
+        title: "Proposed Architecture Overview",
+        subtitle: "High-level system design document",
+        sections: [
+          { heading: "Architecture Type", content: "Client-Server with REST API. The Android app communicates with a Node.js backend hosted on a cloud server. Firebase handles authentication and real-time data sync." },
+          { heading: "Components", list: ["Android Client (Kotlin + Jetpack)", "Firebase Authentication", "Cloud Firestore (database)", "Node.js API (business logic)", "Cloud Storage (media)"] },
+          { heading: "Data Flow", content: "User → App → Firebase Auth → API Server → Firestore → Response back to App. All communication is secured via HTTPS and JWT tokens." },
+        ]
+      },
+      wireframes: {
+        title: "UX Wireframes — Low Fidelity",
+        subtitle: "Screen layouts before visual design",
+        sections: [
+          { heading: "Screens Included", list: ["Onboarding flow (3 screens)", "Login / Register", "Main dashboard", "Feature detail view", "Settings & profile", "Notifications center"] },
+          { heading: "Navigation Structure", content: "Bottom navigation bar with 4 primary tabs. Each tab contains nested navigation. Modal sheets used for quick actions to minimize context switching." },
+          { heading: "Key Interactions", list: ["Swipe gestures for list items", "Pull-to-refresh on dashboard", "Long-press for contextual menus", "Floating action button for primary action"] },
+        ]
+      },
+      userflow: {
+        title: "User Flow Diagram",
+        subtitle: "Complete navigation & decision paths",
+        sections: [
+          { heading: "Primary Flows", list: ["New user onboarding → profile setup → dashboard", "Returning user → direct to dashboard", "Guest mode → limited access → upgrade prompt"] },
+          { heading: "Error Paths", list: ["Network failure → cached content shown", "Auth failure → re-login prompt", "Payment failure → retry flow"] },
+        ]
+      },
+      ui_mockups: {
+        title: "UI Design Mockups",
+        subtitle: "High-fidelity visual designs for approval",
+        sections: [
+          { heading: "Design System", list: ["Primary: #6820EC (Purple)", "Secondary: #2563EB (Blue)", "Font: Syne (headings) + DM Sans (body)", "Border radius: 12–24px consistent"] },
+          { heading: "Screens Designed", list: ["Splash & onboarding", "Authentication screens", "Main dashboard", "All feature screens", "Profile & settings", "Admin views"] },
+          { heading: "Assets Included", content: "All icons are from Boxicons library. Custom illustrations provided as SVG. Logo integrated in all header variants." },
+        ]
+      },
+      checklist: {
+        title: "Feature Completion Checklist",
+        subtitle: "Development progress report",
+        sections: [
+          { heading: "Completed ✓", list: ["User registration & login", "Dashboard data loading", "Push notification system", "Profile management"] },
+          { heading: "In Progress ◷", list: ["Payment integration (80%)", "Admin panel (60%)"] },
+          { heading: "Pending", list: ["Final QA pass", "Performance optimization", "Play Store submission"] },
+        ]
+      },
+      api_docs: {
+        title: "API Documentation",
+        subtitle: "Backend endpoints reference",
+        sections: [
+          { heading: "Base URL", content: "https://api.yourapp.com/v1" },
+          { heading: "Authentication", content: "All endpoints require a Bearer token in the Authorization header. Tokens are obtained via POST /auth/login and expire after 24 hours." },
+          { heading: "Key Endpoints", list: ["POST /auth/login — User authentication", "GET /users/:id — Fetch user profile", "POST /projects — Create new project", "GET /payments — List payment history", "POST /notifications/send — Push notification"] },
+        ]
+      },
+      db_schema: {
+        title: "Database Structure Overview",
+        subtitle: "Firestore collections & fields",
+        sections: [
+          { heading: "Collections", list: ["users — profile, role, createdAt, planType", "projects — ownerId, status, steps[], payments[]", "payments — amount, reason, paidAt, stepIndex", "notifications — userId, title, body, read"] },
+          { heading: "Security Rules", content: "All reads/writes require authentication. Users can only access their own documents. Admin role bypasses restrictions for management operations." },
+        ]
+      },
+      testing_guide: {
+        title: "Beta Testing Guide",
+        subtitle: "Instructions for testing the application",
+        sections: [
+          { heading: "Installation", list: ["Download the APK from the provided link", "Enable 'Install from unknown sources' in settings", "Open the APK file and follow installation steps"] },
+          { heading: "Test Scenarios", list: ["Register a new account with email", "Navigate through all main screens", "Create a sample project", "Test payment flow (use test credentials provided)", "Enable & receive a push notification"] },
+          { heading: "How to Report Issues", content: "Use the feedback form included in the app (Settings → Beta Feedback) or reply directly to the email. Please include screenshots and describe the steps to reproduce." },
+        ]
+      },
+      user_guide: {
+        title: "User Guide",
+        subtitle: "Complete guide to using your application",
+        sections: [
+          { heading: "Getting Started", list: ["Download from Play Store (link provided)", "Create your account", "Complete profile setup", "Explore your dashboard"] },
+          { heading: "Key Features", list: ["How to create and manage projects", "Tracking payments & milestones", "Managing notifications", "Contacting support"] },
+          { heading: "Admin Access", content: "Admin credentials are provided separately in a secure email. The admin panel is accessible at: admin.yourapp.com" },
+        ]
+      },
+      campaign: {
+        title: "Campaign Settings Overview",
+        subtitle: "Your advertising campaign configuration",
+        sections: [
+          { heading: "Target Audience", list: ["Age: 25–45", "Location: Dakar, Saint-Louis, Thiès", "Interests: Technology, Mobile apps, Business", "Device: Android smartphones"] },
+          { heading: "Budget Allocation", list: ["Daily budget: as agreed", "Bidding: Cost per install (CPI)", "Campaign duration: 30 days", "Platforms: Google Ads / Meta Ads"] },
+          { heading: "Tracking", content: "Firebase Analytics is configured to track installs, sessions, and key in-app events. Weekly performance reports will be sent every Monday." },
+        ]
+      },
+      invoice: {
+        title: "Monthly Service Invoice",
+        subtitle: "Billing statement for current period",
+        sections: [
+          { heading: "Invoice Details", list: ["Invoice #: ASA-2025-001", "Period: Month 1", "Issue date: [Date]", "Due date: [Date + 7 days]"] },
+          { heading: "Services", list: ["Hosting & server maintenance", "SSL certificate renewal", "Uptime monitoring", "Ad spend management (if applicable)"] },
+          { heading: "Payment Methods", content: "Wave, Orange Money, Free Money, or bank transfer. Payment details provided in the full invoice attached." },
+        ]
+      },
+    };
+
+    /* ══════════════════════════════════════════════
+       PLAN STEP NUMBERING — per plan
+    ══════════════════════════════════════════════ */
+    const PLAN_STEP_COUNTS = { basic: 0, medium: 0, pro: 0 };
+
+    /* ══════════════════════════════════════════════
+       RENDER
+    ══════════════════════════════════════════════ */
+    let currentPlan = 'basic';
+    let openIndex = null;
+
+    function selectPlan(plan) {
+      currentPlan = plan;
+      openIndex = null;
+      document.querySelectorAll('.plan-tab').forEach(t => {
+        t.classList.toggle('active', t.dataset.plan === plan);
+      });
+      renderAccordion(plan);
+    }
+
+    function renderAccordion(plan) {
+      const container = document.getElementById('accordionContainer');
+      const visibleSteps = STEPS.filter(s => s.plans.includes(plan) || s.optional);
+
+      // Separate core vs optional
+      const coreSteps     = STEPS.filter(s => s.plans.includes(plan) && !s.optional);
+      const optionalSteps = STEPS.filter(s => s.optional);
+
+      let html = '';
+
+      if (coreSteps.length) {
+        html += `<div class="steps-section-label"><i class='bx bx-list-ol'></i> &nbsp;Your Plan Steps</div>`;
+        coreSteps.forEach((step, i) => {
+          html += buildAccordionItem(step, i + 1, false, plan);
+        });
+      }
+
+      if (optionalSteps.length) {
+        html += `<div class="steps-section-label" style="margin-top:28px;"><i class='bx bx-plus-circle'></i> &nbsp;Optional Add-ons</div>`;
+        optionalSteps.forEach((step, i) => {
+          html += buildAccordionItem(step, i + 1, true, plan);
+        });
+      }
+
+      container.innerHTML = html;
+    }
+
+    function buildAccordionItem(step, displayNum, isOptional, plan) {
+      const sendsHTML = step.sends.map(s => {
+        const pdfBtn = s.pdf
+          ? `<span class="pdf-pill" onclick="openPdf('${s.pdf}','${s.text}');event.stopPropagation()"><i class='bx bx-show'></i> See example</span>`
+          : '';
+        return `<li><i class='bx bx-send'></i> ${s.text}${pdfBtn}</li>`;
+      }).join('');
+
+      const asksHTML = step.asks.length
+        ? step.asks.map(a => `<li><i class='bx bx-check-square'></i> ${a}</li>`).join('')
+        : '';
+
+      const id = `acc-${step.num}`;
+      const optTag = isOptional ? `<span style="font-size:0.7rem;background:#f59e0b18;color:#b45309;border-radius:100px;padding:2px 8px;font-weight:600;font-family:'DM Sans',sans-serif;margin-left:8px;">Optional</span>` : '';
+
+      return `
+        <div class="accordion-item" id="${id}">
+          <div class="accordion-header" onclick="toggleAccordion('${id}')">
+            <div class="step-num ${isOptional ? 'optional' : ''}">${displayNum}</div>
+            <div class="accordion-title-block">
+              <h3>${step.title}${optTag}</h3>
+              <span class="email-badge"><i class='bx bx-envelope'></i> ${step.emailSubject}</span>
+            </div>
+            <i class='bx bx-chevron-down accordion-chevron'></i>
+          </div>
+          <div class="accordion-body" id="body-${id}">
+            <div class="accordion-body-inner">
+              <div class="deliverable-block">
+                <div class="block-label sends"><i class='bx bx-package'></i> What we send you</div>
+                <ul class="deliverable-list sends-list">${sendsHTML}</ul>
+              </div>
+              ${asksHTML ? `
+              <div class="deliverable-block">
+                <div class="block-label asks"><i class='bx bx-comment-check'></i> What we ask from you</div>
+                <ul class="deliverable-list asks-list">${asksHTML}</ul>
+              </div>` : ''}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function toggleAccordion(id) {
+      const item = document.getElementById(id);
+      const body = document.getElementById('body-' + id);
+      const isOpen = item.classList.contains('open');
+
+      // Close all
+      document.querySelectorAll('.accordion-item.open').forEach(el => {
+        el.classList.remove('open');
+        const b = document.getElementById('body-' + el.id);
+        if (b) b.style.maxHeight = '0';
+      });
+
+      if (!isOpen) {
+        item.classList.add('open');
+        body.style.maxHeight = body.scrollHeight + 'px';
+      }
+    }
+
+    /* ══════════════════════════════════════════════
+       PDF MODAL
+    ══════════════════════════════════════════════ */
+    function openPdf(key, label) {
+      const data = PDF_PREVIEWS[key];
+      if (!data) return;
+
+      document.getElementById('pdfModalTitle').textContent = data.title;
+
+      let sectionsHTML = data.sections.map(sec => {
+        let inner = '';
+        if (sec.content) inner += `<p>${sec.content}</p>`;
+        if (sec.list) inner += `<ul>${sec.list.map(l => `<li>${l}</li>`).join('')}</ul>`;
+        if (sec.bars) inner += sec.bars.map(b =>
+          `<div style="margin-bottom:8px;"><div style="font-family:'DM Sans',sans-serif;font-size:0.76rem;color:#888;margin-bottom:3px;">${b.label}</div><div class="pdf-placeholder-bar ${b.w}"></div></div>`
+        ).join('');
+        return `<div class="pdf-section"><h5>${sec.heading}</h5>${inner}</div>`;
+      }).join('');
+
+      document.getElementById('pdfModalBody').innerHTML = `
+        <div class="pdf-doc">
+          <div class="pdf-doc-header">
+            <div class="pdf-logo">Amm Sa Appli</div>
+            <h2>${data.title}</h2>
+            <p>${data.subtitle}</p>
+          </div>
+          <div class="pdf-doc-body">
+            <div class="pdf-meta-row">
+              <div class="pdf-meta-chip">Date: <strong>[Issued Date]</strong></div>
+              <div class="pdf-meta-chip">Client: <strong>[Client Name]</strong></div>
+              <div class="pdf-meta-chip">Ref: <strong>ASA-2025</strong></div>
+            </div>
+            ${sectionsHTML}
+          </div>
+        </div>
+        <div class="pdf-footer-actions">
+          <p class="pdf-footer-note">This is a preview of the document format. The actual PDF sent to you will be filled with your project's specific details.</p>
+          <a class="pdf-open-btn" href="pdfs/${key}.pdf" target="_blank" rel="noopener">
+            <i class='bx bxs-file-pdf'></i> Open PDF document
+          </a>
+        </div>
+      `;
+
+      document.getElementById('pdfOverlay').classList.add('show');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePdfModal(event) {
+      if (event && event.target !== document.getElementById('pdfOverlay')) return;
+      document.getElementById('pdfOverlay').classList.remove('show');
+      document.body.style.overflow = '';
+    }
+
+    /* ══════════════════════════════════════════════
+       INIT
+    ══════════════════════════════════════════════ */
+    renderAccordion('basic');
+  </script>
+</body>
 </html>
