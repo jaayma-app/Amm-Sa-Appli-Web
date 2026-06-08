@@ -500,21 +500,21 @@
 
     <!-- HERO -->
     <div class="q-hero">
-      <div class="q-hero-tag"><i class='bx bx-help-circle'></i> &nbsp;Step-by-Step Guide</div>
-      <h1>What to Expect at Each Step</h1>
-      <p>At every milestone, here's exactly what we deliver to you — and what we'll need from you to move forward.</p>
+      <div class="q-hero-tag"><i class='bx bx-help-circle'></i> &nbsp;<span data-lang="faq_tag">Step-by-Step Guide</span></div>
+      <h1 data-lang="faq_hero_title">What to Expect at Each Step</h1>
+      <p data-lang="faq_hero_desc">At every milestone, here's exactly what we deliver to you — and what we'll need from you to move forward.</p>
     </div>
 
     <!-- PLAN FILTER TABS -->
     <div class="plan-tabs" id="planTabs">
       <button class="plan-tab active" data-plan="basic" onclick="selectPlan('basic')">
-        <i class='bx bx-rocket'></i> Basic
+        <i class='bx bx-rocket'></i> <span data-lang="plan_basic">Basic</span>
       </button>
       <button class="plan-tab" data-plan="medium" onclick="selectPlan('medium')">
-        <i class='bx bx-diamond'></i> Medium
+        <i class='bx bx-diamond'></i> <span data-lang="plan_medium">Medium</span>
       </button>
       <button class="plan-tab" data-plan="pro" onclick="selectPlan('pro')">
-        <i class='bx bx-crown'></i> Pro
+        <i class='bx bx-crown'></i> <span data-lang="plan_pro">Pro</span>
       </button>
     </div>
 
@@ -527,7 +527,7 @@
   <div class="pdf-modal-overlay" id="pdfOverlay" onclick="closePdfModal(event)">
     <div class="pdf-modal">
       <div class="pdf-modal-header">
-        <h4><i class='bx bxs-file-pdf'></i> <span id="pdfModalTitle">Document Preview</span></h4>
+        <h4><i class='bx bxs-file-pdf'></i> <span id="pdfModalTitle" data-lang="faq_pdf_modal_title">Document Preview</span></h4>
         <button class="pdf-close" onclick="closePdfModal(null)"><i class='bx bx-x'></i></button>
       </div>
       <div class="pdf-modal-body" id="pdfModalBody"></div>
@@ -543,279 +543,262 @@
 
   <script>
     /* ══════════════════════════════════════════════
+       TRANSLATION HELPER
+       Reads from the global `en` / `fr` objects
+       loaded by languages/en.js and languages/fr.js
+    ══════════════════════════════════════════════ */
+    function t(key) {
+      const lang = localStorage.getItem('lang') || 'fr';
+      const dict = lang === 'fr' ? fr : en;
+      return (dict && dict[key]) || key;
+    }
+
+    /* ══════════════════════════════════════════════
        DATA — steps with plan visibility
-       plans: which plans show this step
-         'basic', 'medium', 'pro'  or  '*' for all
-       optional: true → shown for all but styled differently
+       Texts are pulled via t() at render time so
+       switching language re-renders automatically.
     ══════════════════════════════════════════════ */
     const STEPS = [
       {
         num: 1,
-        title: "Deposit · Project Analysis & Planning",
-        emailSubject: "Project Analysis Completed",
+        titleKey:        "step1_title",
+        emailSubjectKey: "step1_email",
         plans: ['basic', 'medium', 'pro'],
         sends: [
-          { text: "Project requirements summary", pdf: "requirements" },
-          { text: "List of requested features" },
-          { text: "Estimated timeline" },
-          { text: "Proposed architecture overview", pdf: "architecture" },
-          { text: "Next step explanation" },
+          { textKey: "step1_send1", pdf: "requirements" },
+          { textKey: "step1_send2" },
+          { textKey: "step1_send3" },
+          { textKey: "step1_send4", pdf: "architecture" },
+          { textKey: "step1_send5" },
         ],
-        asks: [
-          "Confirm requirements",
-          "Report any missing features",
-        ],
+        asks: ["step1_ask1", "step1_ask2"],
       },
       {
         num: 2,
-        title: "UX Wireframes",
-        emailSubject: "Wireframes Ready for Review",
+        titleKey:        "step2_title",
+        emailSubjectKey: "step2_email",
         plans: ['medium', 'pro'],
         sends: [
-          { text: "Low-fidelity screens", pdf: "wireframes" },
-          { text: "User flow diagram", pdf: "userflow" },
-          { text: "Navigation structure" },
+          { textKey: "step2_send1", pdf: "wireframes" },
+          { textKey: "step2_send2", pdf: "userflow" },
+          { textKey: "step2_send3" },
         ],
-        asks: [
-          "Approve screen layouts",
-          "Suggest changes before design starts",
-        ],
+        asks: ["step2_ask1", "step2_ask2"],
       },
       {
         num: 3,
-        title: "UI Design",
-        emailSubject: "UI Design Ready for Validation",
+        titleKey:        "step3_title",
+        emailSubjectKey: "step3_email",
         plans: ['medium', 'pro'],
         sends: [
-          { text: "High-fidelity mockups (Figma link or PDF)", pdf: "ui_mockups" },
-          { text: "Color palette" },
-          { text: "Typography choices" },
-          { text: "Logo integration preview" },
+          { textKey: "step3_send1", pdf: "ui_mockups" },
+          { textKey: "step3_send2" },
+          { textKey: "step3_send3" },
+          { textKey: "step3_send4" },
         ],
-        asks: [
-          "Approve visual design",
-          "Request final design changes",
-        ],
+        asks: ["step3_ask1", "step3_ask2"],
       },
       {
         num: 4,
-        title: "Main Development",
-        emailSubject: "Development Progress Update",
+        titleKey:        "step4_title",
+        emailSubjectKey: "step4_email",
         plans: ['basic', 'medium', 'pro'],
         sends: [
-          { text: "Screenshots/videos of implemented features" },
-          { text: "Feature completion checklist", pdf: "checklist" },
-          { text: "Test APK (if available)" },
+          { textKey: "step4_send1" },
+          { textKey: "step4_send2", pdf: "checklist" },
+          { textKey: "step4_send3" },
         ],
-        asks: [
-          "Review progress",
-          "Confirm functionality matches requirements",
-        ],
+        asks: ["step4_ask1", "step4_ask2"],
       },
       {
         num: 5,
-        title: "Backend Server · API Development",
-        emailSubject: "Backend Infrastructure Completed",
+        titleKey:        "step5_title",
+        emailSubjectKey: "step5_email",
         plans: ['medium', 'pro'],
         sends: [
-          { text: "API documentation", pdf: "api_docs" },
-          { text: "Database structure overview", pdf: "db_schema" },
-          { text: "Authentication flow explanation" },
-          { text: "Admin panel screenshots" },
+          { textKey: "step5_send1", pdf: "api_docs" },
+          { textKey: "step5_send2", pdf: "db_schema" },
+          { textKey: "step5_send3" },
+          { textKey: "step5_send4" },
         ],
-        asks: [
-          "Validate business logic",
-          "Confirm data requirements",
-        ],
+        asks: ["step5_ask1", "step5_ask2"],
       },
       {
         num: 6,
-        title: "QA & Beta Testing",
-        emailSubject: "Beta Version Available",
+        titleKey:        "step6_title",
+        emailSubjectKey: "step6_email",
         plans: ['basic', 'medium', 'pro'],
         sends: [
-          { text: "Beta APK / TestFlight link" },
-          { text: "Testing guide", pdf: "testing_guide" },
-          { text: "Known issues list" },
-          { text: "Feedback form link" },
+          { textKey: "step6_send1" },
+          { textKey: "step6_send2", pdf: "testing_guide" },
+          { textKey: "step6_send3" },
+          { textKey: "step6_send4" },
         ],
-        asks: [
-          "Test application thoroughly",
-          "Report bugs and suggestions",
-        ],
+        asks: ["step6_ask1", "step6_ask2"],
       },
       {
         num: 7,
-        title: "Launch",
-        emailSubject: "Application Successfully Launched",
+        titleKey:        "step7_title",
+        emailSubjectKey: "step7_email",
         plans: ['basic', 'medium', 'pro'],
         sends: [
-          { text: "Play Store / App Store link" },
-          { text: "Website link (if applicable)" },
-          { text: "Admin credentials" },
-          { text: "User guide", pdf: "user_guide" },
-          { text: "Source code delivery confirmation (if included)" },
+          { textKey: "step7_send1" },
+          { textKey: "step7_send2" },
+          { textKey: "step7_send3" },
+          { textKey: "step7_send4", pdf: "user_guide" },
+          { textKey: "step7_send5" },
         ],
-        asks: [
-          "Confirm successful deployment",
-        ],
+        asks: ["step7_ask1"],
       },
       {
         num: 8,
-        title: "Advertisement Setup",
-        emailSubject: "Marketing Campaign Setup Completed",
+        titleKey:        "step8_title",
+        emailSubjectKey: "step8_email",
         plans: ['basic', 'medium', 'pro'],
         optional: true,
         sends: [
-          { text: "Campaign screenshots" },
-          { text: "Target audience settings summary", pdf: "campaign" },
-          { text: "Budget allocation breakdown" },
-          { text: "Tracking links" },
+          { textKey: "step8_send1" },
+          { textKey: "step8_send2", pdf: "campaign" },
+          { textKey: "step8_send3" },
+          { textKey: "step8_send4" },
         ],
-        asks: [
-          "Approve campaign launch",
-        ],
+        asks: ["step8_ask1"],
       },
       {
         num: 9,
-        title: "Monthly Payment",
-        emailSubject: "Monthly Service Invoice",
+        titleKey:        "step9_title",
+        emailSubjectKey: "step9_email",
         plans: ['basic', 'medium', 'pro'],
         optional: true,
         sends: [
-          { text: "Invoice", pdf: "invoice" },
-          { text: "Hosting costs summary" },
-          { text: "Maintenance report" },
-          { text: "Ad spend report (if applicable)" },
-          { text: "Server uptime summary" },
-          { text: "Payment due date, methods & next billing date" },
+          { textKey: "step9_send1", pdf: "invoice" },
+          { textKey: "step9_send2" },
+          { textKey: "step9_send3" },
+          { textKey: "step9_send4" },
+          { textKey: "step9_send5" },
+          { textKey: "step9_send6" },
         ],
         asks: [],
       },
     ];
 
     /* ══════════════════════════════════════════════
-       PDF PREVIEWS — simulated document content
+       PDF PREVIEWS — translated at open time
     ══════════════════════════════════════════════ */
-    const PDF_PREVIEWS = {
+    const PDF_PREVIEW_KEYS = {
       requirements: {
-        title: "Project Requirements Summary",
-        subtitle: "Sent after initial deposit & consultation",
+        titleKey:    "pdf_requirements_title",
+        subtitleKey: "pdf_requirements_subtitle",
         sections: [
-          { heading: "Project Overview", content: "This document outlines the agreed scope of work for your mobile application project. It serves as the reference point for all future development decisions." },
-          { heading: "Requested Features", list: ["User authentication (email + social login)", "Dashboard with real-time statistics", "Push notifications", "In-app payment integration", "Admin management panel"] },
-          { heading: "Platform & Tech Stack", list: ["Android (Kotlin)", "Firebase Firestore & Auth", "REST API (Node.js / TypeScript)", "Target: Android 8.0+"] },
-          { heading: "Estimated Timeline", content: null, bars: [
-            { label: "Analysis & Planning", w: 'w80' },
-            { label: "Design Phase", w: 'w60' },
-            { label: "Development", w: 'w90' },
-            { label: "QA & Launch", w: 'w70' },
+          { headingKey: "pdf_requirements_h1", contentKey: "pdf_requirements_c1" },
+          { headingKey: "pdf_requirements_h2", listKeys: ["pdf_requirements_l2_1","pdf_requirements_l2_2","pdf_requirements_l2_3","pdf_requirements_l2_4","pdf_requirements_l2_5"] },
+          { headingKey: "pdf_requirements_h3", listKeys: ["pdf_requirements_l3_1","pdf_requirements_l3_2","pdf_requirements_l3_3","pdf_requirements_l3_4"] },
+          { headingKey: "pdf_requirements_h4", bars: [
+            { labelKey: "pdf_bar_analysis",    w: 'w80' },
+            { labelKey: "pdf_bar_design",      w: 'w60' },
+            { labelKey: "pdf_bar_development", w: 'w90' },
+            { labelKey: "pdf_bar_qa",          w: 'w70' },
           ]},
         ]
       },
       architecture: {
-        title: "Proposed Architecture Overview",
-        subtitle: "High-level system design document",
+        titleKey:    "pdf_architecture_title",
+        subtitleKey: "pdf_architecture_subtitle",
         sections: [
-          { heading: "Architecture Type", content: "Client-Server with REST API. The Android app communicates with a Node.js backend hosted on a cloud server. Firebase handles authentication and real-time data sync." },
-          { heading: "Components", list: ["Android Client (Kotlin + Jetpack)", "Firebase Authentication", "Cloud Firestore (database)", "Node.js API (business logic)", "Cloud Storage (media)"] },
-          { heading: "Data Flow", content: "User → App → Firebase Auth → API Server → Firestore → Response back to App. All communication is secured via HTTPS and JWT tokens." },
+          { headingKey: "pdf_architecture_h1", contentKey: "pdf_architecture_c1" },
+          { headingKey: "pdf_architecture_h2", listKeys: ["pdf_architecture_l2_1","pdf_architecture_l2_2","pdf_architecture_l2_3","pdf_architecture_l2_4","pdf_architecture_l2_5"] },
+          { headingKey: "pdf_architecture_h3", contentKey: "pdf_architecture_c3" },
         ]
       },
       wireframes: {
-        title: "UX Wireframes — Low Fidelity",
-        subtitle: "Screen layouts before visual design",
+        titleKey:    "pdf_wireframes_title",
+        subtitleKey: "pdf_wireframes_subtitle",
         sections: [
-          { heading: "Screens Included", list: ["Onboarding flow (3 screens)", "Login / Register", "Main dashboard", "Feature detail view", "Settings & profile", "Notifications center"] },
-          { heading: "Navigation Structure", content: "Bottom navigation bar with 4 primary tabs. Each tab contains nested navigation. Modal sheets used for quick actions to minimize context switching." },
-          { heading: "Key Interactions", list: ["Swipe gestures for list items", "Pull-to-refresh on dashboard", "Long-press for contextual menus", "Floating action button for primary action"] },
+          { headingKey: "pdf_wireframes_h1", listKeys: ["pdf_wireframes_l1_1","pdf_wireframes_l1_2","pdf_wireframes_l1_3","pdf_wireframes_l1_4","pdf_wireframes_l1_5","pdf_wireframes_l1_6"] },
+          { headingKey: "pdf_wireframes_h2", contentKey: "pdf_wireframes_c2" },
+          { headingKey: "pdf_wireframes_h3", listKeys: ["pdf_wireframes_l3_1","pdf_wireframes_l3_2","pdf_wireframes_l3_3","pdf_wireframes_l3_4"] },
         ]
       },
       userflow: {
-        title: "User Flow Diagram",
-        subtitle: "Complete navigation & decision paths",
+        titleKey:    "pdf_userflow_title",
+        subtitleKey: "pdf_userflow_subtitle",
         sections: [
-          { heading: "Primary Flows", list: ["New user onboarding → profile setup → dashboard", "Returning user → direct to dashboard", "Guest mode → limited access → upgrade prompt"] },
-          { heading: "Error Paths", list: ["Network failure → cached content shown", "Auth failure → re-login prompt", "Payment failure → retry flow"] },
+          { headingKey: "pdf_userflow_h1", listKeys: ["pdf_userflow_l1_1","pdf_userflow_l1_2","pdf_userflow_l1_3"] },
+          { headingKey: "pdf_userflow_h2", listKeys: ["pdf_userflow_l2_1","pdf_userflow_l2_2","pdf_userflow_l2_3"] },
         ]
       },
       ui_mockups: {
-        title: "UI Design Mockups",
-        subtitle: "High-fidelity visual designs for approval",
+        titleKey:    "pdf_ui_title",
+        subtitleKey: "pdf_ui_subtitle",
         sections: [
-          { heading: "Design System", list: ["Primary: #6820EC (Purple)", "Secondary: #2563EB (Blue)", "Font: Syne (headings) + DM Sans (body)", "Border radius: 12–24px consistent"] },
-          { heading: "Screens Designed", list: ["Splash & onboarding", "Authentication screens", "Main dashboard", "All feature screens", "Profile & settings", "Admin views"] },
-          { heading: "Assets Included", content: "All icons are from Boxicons library. Custom illustrations provided as SVG. Logo integrated in all header variants." },
+          { headingKey: "pdf_ui_h1", listKeys: ["pdf_ui_l1_1","pdf_ui_l1_2","pdf_ui_l1_3","pdf_ui_l1_4"] },
+          { headingKey: "pdf_ui_h2", listKeys: ["pdf_ui_l2_1","pdf_ui_l2_2","pdf_ui_l2_3","pdf_ui_l2_4","pdf_ui_l2_5","pdf_ui_l2_6"] },
+          { headingKey: "pdf_ui_h3", contentKey: "pdf_ui_c3" },
         ]
       },
       checklist: {
-        title: "Feature Completion Checklist",
-        subtitle: "Development progress report",
+        titleKey:    "pdf_checklist_title",
+        subtitleKey: "pdf_checklist_subtitle",
         sections: [
-          { heading: "Completed ✓", list: ["User registration & login", "Dashboard data loading", "Push notification system", "Profile management"] },
-          { heading: "In Progress ◷", list: ["Payment integration (80%)", "Admin panel (60%)"] },
-          { heading: "Pending", list: ["Final QA pass", "Performance optimization", "Play Store submission"] },
+          { headingKey: "pdf_checklist_h1", listKeys: ["pdf_checklist_l1_1","pdf_checklist_l1_2","pdf_checklist_l1_3","pdf_checklist_l1_4"] },
+          { headingKey: "pdf_checklist_h2", listKeys: ["pdf_checklist_l2_1","pdf_checklist_l2_2"] },
+          { headingKey: "pdf_checklist_h3", listKeys: ["pdf_checklist_l3_1","pdf_checklist_l3_2","pdf_checklist_l3_3"] },
         ]
       },
       api_docs: {
-        title: "API Documentation",
-        subtitle: "Backend endpoints reference",
+        titleKey:    "pdf_api_title",
+        subtitleKey: "pdf_api_subtitle",
         sections: [
-          { heading: "Base URL", content: "https://api.yourapp.com/v1" },
-          { heading: "Authentication", content: "All endpoints require a Bearer token in the Authorization header. Tokens are obtained via POST /auth/login and expire after 24 hours." },
-          { heading: "Key Endpoints", list: ["POST /auth/login — User authentication", "GET /users/:id — Fetch user profile", "POST /projects — Create new project", "GET /payments — List payment history", "POST /notifications/send — Push notification"] },
+          { headingKey: "pdf_api_h1", contentKey: "pdf_api_c1" },
+          { headingKey: "pdf_api_h2", contentKey: "pdf_api_c2" },
+          { headingKey: "pdf_api_h3", listKeys: ["pdf_api_l3_1","pdf_api_l3_2","pdf_api_l3_3","pdf_api_l3_4","pdf_api_l3_5"] },
         ]
       },
       db_schema: {
-        title: "Database Structure Overview",
-        subtitle: "Firestore collections & fields",
+        titleKey:    "pdf_db_title",
+        subtitleKey: "pdf_db_subtitle",
         sections: [
-          { heading: "Collections", list: ["users — profile, role, createdAt, planType", "projects — ownerId, status, steps[], payments[]", "payments — amount, reason, paidAt, stepIndex", "notifications — userId, title, body, read"] },
-          { heading: "Security Rules", content: "All reads/writes require authentication. Users can only access their own documents. Admin role bypasses restrictions for management operations." },
+          { headingKey: "pdf_db_h1", listKeys: ["pdf_db_l1_1","pdf_db_l1_2","pdf_db_l1_3","pdf_db_l1_4"] },
+          { headingKey: "pdf_db_h2", contentKey: "pdf_db_c2" },
         ]
       },
       testing_guide: {
-        title: "Beta Testing Guide",
-        subtitle: "Instructions for testing the application",
+        titleKey:    "pdf_testing_title",
+        subtitleKey: "pdf_testing_subtitle",
         sections: [
-          { heading: "Installation", list: ["Download the APK from the provided link", "Enable 'Install from unknown sources' in settings", "Open the APK file and follow installation steps"] },
-          { heading: "Test Scenarios", list: ["Register a new account with email", "Navigate through all main screens", "Create a sample project", "Test payment flow (use test credentials provided)", "Enable & receive a push notification"] },
-          { heading: "How to Report Issues", content: "Use the feedback form included in the app (Settings → Beta Feedback) or reply directly to the email. Please include screenshots and describe the steps to reproduce." },
+          { headingKey: "pdf_testing_h1", listKeys: ["pdf_testing_l1_1","pdf_testing_l1_2","pdf_testing_l1_3"] },
+          { headingKey: "pdf_testing_h2", listKeys: ["pdf_testing_l2_1","pdf_testing_l2_2","pdf_testing_l2_3","pdf_testing_l2_4","pdf_testing_l2_5"] },
+          { headingKey: "pdf_testing_h3", contentKey: "pdf_testing_c3" },
         ]
       },
       user_guide: {
-        title: "User Guide",
-        subtitle: "Complete guide to using your application",
+        titleKey:    "pdf_userguide_title",
+        subtitleKey: "pdf_userguide_subtitle",
         sections: [
-          { heading: "Getting Started", list: ["Download from Play Store (link provided)", "Create your account", "Complete profile setup", "Explore your dashboard"] },
-          { heading: "Key Features", list: ["How to create and manage projects", "Tracking payments & milestones", "Managing notifications", "Contacting support"] },
-          { heading: "Admin Access", content: "Admin credentials are provided separately in a secure email. The admin panel is accessible at: admin.yourapp.com" },
+          { headingKey: "pdf_userguide_h1", listKeys: ["pdf_userguide_l1_1","pdf_userguide_l1_2","pdf_userguide_l1_3","pdf_userguide_l1_4"] },
+          { headingKey: "pdf_userguide_h2", listKeys: ["pdf_userguide_l2_1","pdf_userguide_l2_2","pdf_userguide_l2_3","pdf_userguide_l2_4"] },
+          { headingKey: "pdf_userguide_h3", contentKey: "pdf_userguide_c3" },
         ]
       },
       campaign: {
-        title: "Campaign Settings Overview",
-        subtitle: "Your advertising campaign configuration",
+        titleKey:    "pdf_campaign_title",
+        subtitleKey: "pdf_campaign_subtitle",
         sections: [
-          { heading: "Target Audience", list: ["Age: 25–45", "Location: Dakar, Saint-Louis, Thiès", "Interests: Technology, Mobile apps, Business", "Device: Android smartphones"] },
-          { heading: "Budget Allocation", list: ["Daily budget: as agreed", "Bidding: Cost per install (CPI)", "Campaign duration: 30 days", "Platforms: Google Ads / Meta Ads"] },
-          { heading: "Tracking", content: "Firebase Analytics is configured to track installs, sessions, and key in-app events. Weekly performance reports will be sent every Monday." },
+          { headingKey: "pdf_campaign_h1", listKeys: ["pdf_campaign_l1_1","pdf_campaign_l1_2","pdf_campaign_l1_3","pdf_campaign_l1_4"] },
+          { headingKey: "pdf_campaign_h2", listKeys: ["pdf_campaign_l2_1","pdf_campaign_l2_2","pdf_campaign_l2_3","pdf_campaign_l2_4"] },
+          { headingKey: "pdf_campaign_h3", contentKey: "pdf_campaign_c3" },
         ]
       },
       invoice: {
-        title: "Monthly Service Invoice",
-        subtitle: "Billing statement for current period",
+        titleKey:    "pdf_invoice_title",
+        subtitleKey: "pdf_invoice_subtitle",
         sections: [
-          { heading: "Invoice Details", list: ["Invoice #: ASA-2025-001", "Period: Month 1", "Issue date: [Date]", "Due date: [Date + 7 days]"] },
-          { heading: "Services", list: ["Hosting & server maintenance", "SSL certificate renewal", "Uptime monitoring", "Ad spend management (if applicable)"] },
-          { heading: "Payment Methods", content: "Wave, Orange Money, Free Money, or bank transfer. Payment details provided in the full invoice attached." },
+          { headingKey: "pdf_invoice_h1", listKeys: ["pdf_invoice_l1_1","pdf_invoice_l1_2","pdf_invoice_l1_3","pdf_invoice_l1_4"] },
+          { headingKey: "pdf_invoice_h2", listKeys: ["pdf_invoice_l2_1","pdf_invoice_l2_2","pdf_invoice_l2_3","pdf_invoice_l2_4"] },
+          { headingKey: "pdf_invoice_h3", contentKey: "pdf_invoice_c3" },
         ]
       },
     };
-
-    /* ══════════════════════════════════════════════
-       PLAN STEP NUMBERING — per plan
-    ══════════════════════════════════════════════ */
-    const PLAN_STEP_COUNTS = { basic: 0, medium: 0, pro: 0 };
 
     /* ══════════════════════════════════════════════
        RENDER
@@ -826,73 +809,73 @@
     function selectPlan(plan) {
       currentPlan = plan;
       openIndex = null;
-      document.querySelectorAll('.plan-tab').forEach(t => {
-        t.classList.toggle('active', t.dataset.plan === plan);
+      document.querySelectorAll('.plan-tab').forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.plan === plan);
       });
       renderAccordion(plan);
     }
 
     function renderAccordion(plan) {
       const container = document.getElementById('accordionContainer');
-      const visibleSteps = STEPS.filter(s => s.plans.includes(plan) || s.optional);
 
-      // Separate core vs optional
       const coreSteps     = STEPS.filter(s => s.plans.includes(plan) && !s.optional);
       const optionalSteps = STEPS.filter(s => s.optional);
 
       let html = '';
 
       if (coreSteps.length) {
-        html += `<div class="steps-section-label"><i class='bx bx-list-ol'></i> &nbsp;Your Plan Steps</div>`;
+        html += `<div class="steps-section-label"><i class='bx bx-list-ol'></i> &nbsp;${t('faq_section_plan_steps')}</div>`;
         coreSteps.forEach((step, i) => {
-          html += buildAccordionItem(step, i + 1, false, plan);
+          html += buildAccordionItem(step, i + 1, false);
         });
       }
 
       if (optionalSteps.length) {
-        html += `<div class="steps-section-label" style="margin-top:28px;"><i class='bx bx-plus-circle'></i> &nbsp;Optional Add-ons</div>`;
+        html += `<div class="steps-section-label" style="margin-top:28px;"><i class='bx bx-plus-circle'></i> &nbsp;${t('faq_section_optional')}</div>`;
         optionalSteps.forEach((step, i) => {
-          html += buildAccordionItem(step, i + 1, true, plan);
+          html += buildAccordionItem(step, i + 1, true);
         });
       }
 
       container.innerHTML = html;
     }
 
-    function buildAccordionItem(step, displayNum, isOptional, plan) {
+    function buildAccordionItem(step, displayNum, isOptional) {
       const sendsHTML = step.sends.map(s => {
         const pdfBtn = s.pdf
-          ? `<span class="pdf-pill" onclick="openPdf('${s.pdf}','${s.text}');event.stopPropagation()"><i class='bx bx-show'></i> See example</span>`
+          ? `<span class="pdf-pill" onclick="openPdf('${s.pdf}','${s.textKey}');event.stopPropagation()"><i class='bx bx-show'></i> ${t('faq_pdf_see_example')}</span>`
           : '';
-        return `<li><i class='bx bx-send'></i> ${s.text}${pdfBtn}</li>`;
+        return `<li><i class='bx bx-send'></i> ${t(s.textKey)}${pdfBtn}</li>`;
       }).join('');
 
       const asksHTML = step.asks.length
-        ? step.asks.map(a => `<li><i class='bx bx-check-square'></i> ${a}</li>`).join('')
+        ? step.asks.map(a => `<li><i class='bx bx-check-square'></i> ${t(a)}</li>`).join('')
         : '';
 
       const id = `acc-${step.num}`;
-      const optTag = isOptional ? `<span style="font-size:0.7rem;background:#f59e0b18;color:#b45309;border-radius:100px;padding:2px 8px;font-weight:600;font-family:'DM Sans',sans-serif;margin-left:8px;">Optional</span>` : '';
+      const optTag = isOptional
+        ? `<span style="font-size:0.7rem;background:#f59e0b18;color:#b45309;border-radius:100px;padding:2px 8px;font-weight:600;font-family:'DM Sans',sans-serif;margin-left:8px;">${t('faq_optional_badge')}</span>`
+        : '';
 
       return `
         <div class="accordion-item" id="${id}">
           <div class="accordion-header" onclick="toggleAccordion('${id}')">
             <div class="step-num ${isOptional ? 'optional' : ''}">${displayNum}</div>
             <div class="accordion-title-block">
-              <h3>${step.title}${optTag}</h3>
-              <span class="email-badge"><i class='bx bx-envelope'></i> ${step.emailSubject}</span>
+              <h3>${t(step.titleKey)}${optTag}</h3>
+              <span class="email-badge"><i class='bx bx-envelope'></i> ${t(step.emailSubjectKey)}</span>
             </div>
             <i class='bx bx-chevron-down accordion-chevron'></i>
           </div>
           <div class="accordion-body" id="body-${id}">
             <div class="accordion-body-inner">
               <div class="deliverable-block">
-                <div class="block-label sends"><i class='bx bx-package'></i> What we send you</div>
+                <div class="block-label sends"><i class='bx bx-package'></i> ${t('faq_block_sends')}</div>
                 <ul class="deliverable-list sends-list">${sendsHTML}</ul>
               </div>
               ${asksHTML ? `
               <div class="deliverable-block">
-                <div class="block-label asks"><i class='bx bx-comment-check'></i> What we ask from you</div>
+                <div class="block-label asks"><i class='bx bx-comment-check'></i> ${t('faq_block_asks')}</div>
                 <ul class="deliverable-list asks-list">${asksHTML}</ul>
               </div>` : ''}
             </div>
@@ -906,7 +889,6 @@
       const body = document.getElementById('body-' + id);
       const isOpen = item.classList.contains('open');
 
-      // Close all
       document.querySelectorAll('.accordion-item.open').forEach(el => {
         el.classList.remove('open');
         const b = document.getElementById('body-' + el.id);
@@ -923,41 +905,41 @@
        PDF MODAL
     ══════════════════════════════════════════════ */
     function openPdf(key, label) {
-      const data = PDF_PREVIEWS[key];
+      const data = PDF_PREVIEW_KEYS[key];
       if (!data) return;
 
-      document.getElementById('pdfModalTitle').textContent = data.title;
+      document.getElementById('pdfModalTitle').textContent = t(data.titleKey);
 
       let sectionsHTML = data.sections.map(sec => {
         let inner = '';
-        if (sec.content) inner += `<p>${sec.content}</p>`;
-        if (sec.list) inner += `<ul>${sec.list.map(l => `<li>${l}</li>`).join('')}</ul>`;
-        if (sec.bars) inner += sec.bars.map(b =>
-          `<div style="margin-bottom:8px;"><div style="font-family:'DM Sans',sans-serif;font-size:0.76rem;color:#888;margin-bottom:3px;">${b.label}</div><div class="pdf-placeholder-bar ${b.w}"></div></div>`
+        if (sec.contentKey) inner += `<p>${t(sec.contentKey)}</p>`;
+        if (sec.listKeys)   inner += `<ul>${sec.listKeys.map(k => `<li>${t(k)}</li>`).join('')}</ul>`;
+        if (sec.bars)       inner += sec.bars.map(b =>
+          `<div style="margin-bottom:8px;"><div style="font-family:'DM Sans',sans-serif;font-size:0.76rem;color:#888;margin-bottom:3px;">${t(b.labelKey)}</div><div class="pdf-placeholder-bar ${b.w}"></div></div>`
         ).join('');
-        return `<div class="pdf-section"><h5>${sec.heading}</h5>${inner}</div>`;
+        return `<div class="pdf-section"><h5>${t(sec.headingKey)}</h5>${inner}</div>`;
       }).join('');
 
       document.getElementById('pdfModalBody').innerHTML = `
         <div class="pdf-doc">
           <div class="pdf-doc-header">
             <div class="pdf-logo">Amm Sa Appli</div>
-            <h2>${data.title}</h2>
-            <p>${data.subtitle}</p>
+            <h2>${t(data.titleKey)}</h2>
+            <p>${t(data.subtitleKey)}</p>
           </div>
           <div class="pdf-doc-body">
             <div class="pdf-meta-row">
-              <div class="pdf-meta-chip">Date: <strong>[Issued Date]</strong></div>
-              <div class="pdf-meta-chip">Client: <strong>[Client Name]</strong></div>
-              <div class="pdf-meta-chip">Ref: <strong>ASA-2025</strong></div>
+              <div class="pdf-meta-chip">${t('faq_pdf_meta_date')}: <strong>${t('faq_pdf_issued_date')}</strong></div>
+              <div class="pdf-meta-chip">${t('faq_pdf_meta_client')}: <strong>${t('faq_pdf_client_name')}</strong></div>
+              <div class="pdf-meta-chip">${t('faq_pdf_meta_ref')}: <strong>ASA-2025</strong></div>
             </div>
             ${sectionsHTML}
           </div>
         </div>
         <div class="pdf-footer-actions">
-          <p class="pdf-footer-note">This is a preview of the document format. The actual PDF sent to you will be filled with your project's specific details.</p>
+          <p class="pdf-footer-note">${t('faq_pdf_footer_note')}</p>
           <a class="pdf-open-btn" href="pdfs/${key}.pdf" target="_blank" rel="noopener">
-            <i class='bx bxs-file-pdf'></i> Open PDF document
+            <i class='bx bxs-file-pdf'></i> ${t('faq_pdf_open_btn')}
           </a>
         </div>
       `;
